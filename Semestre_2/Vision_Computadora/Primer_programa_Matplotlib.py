@@ -5,8 +5,8 @@ import tkinter as tk
 from tkinter import filedialog
 
 path = filedialog.askopenfilename()
-img = cv2.imread(path)
-img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+img = cv2.imread(path) # Read the image Open CV lee imagenes en formato BGR
+img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB) # Convert BGR to RGB
 #img = cv2.imread("X:\\img\\dg_4p.jpg")
 #cv2.imwrite("X:\\img\\dg_4p_bn.jpg", img)
 
