@@ -1,0 +1,87 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{barnett1960introduction}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=e9e44538c5d5c8c18484b8cafe267ba6}{%
+           family={Barnett},
+           familyi={B\bibinitperiod},
+           given={E.\bibnamedelimi H.},
+           giveni={E\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+      }
+      \strng{namehash}{e9e44538c5d5c8c18484b8cafe267ba6}
+      \strng{fullhash}{e9e44538c5d5c8c18484b8cafe267ba6}
+      \strng{fullhashraw}{e9e44538c5d5c8c18484b8cafe267ba6}
+      \strng{bibnamehash}{e9e44538c5d5c8c18484b8cafe267ba6}
+      \strng{authorbibnamehash}{e9e44538c5d5c8c18484b8cafe267ba6}
+      \strng{authornamehash}{e9e44538c5d5c8c18484b8cafe267ba6}
+      \strng{authorfullhash}{e9e44538c5d5c8c18484b8cafe267ba6}
+      \strng{authorfullhashraw}{e9e44538c5d5c8c18484b8cafe267ba6}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Industrial \& Engineering Chemistry}
+      \field{number}{6}
+      \field{title}{Introduction to Evolutionary Operation}
+      \field{volume}{52}
+      \field{year}{1960}
+      \field{pages}{500\bibrangedash 503}
+      \range{pages}{4}
+      \verb{doi}
+      \verb 10.1021/ie50606a026
+      \endverb
+    \endentry
+    \entry{box1957evolutionary}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=002f69bf140cceda97f81a168d86ceec}{%
+           family={Box},
+           familyi={B\bibinitperiod},
+           given={G.\bibnamedelimi E.\bibnamedelimi P.},
+           giveni={G\bibinitperiod\bibinitdelim E\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+      }
+      \strng{namehash}{002f69bf140cceda97f81a168d86ceec}
+      \strng{fullhash}{002f69bf140cceda97f81a168d86ceec}
+      \strng{fullhashraw}{002f69bf140cceda97f81a168d86ceec}
+      \strng{bibnamehash}{002f69bf140cceda97f81a168d86ceec}
+      \strng{authorbibnamehash}{002f69bf140cceda97f81a168d86ceec}
+      \strng{authornamehash}{002f69bf140cceda97f81a168d86ceec}
+      \strng{authorfullhash}{002f69bf140cceda97f81a168d86ceec}
+      \strng{authorfullhashraw}{002f69bf140cceda97f81a168d86ceec}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of the Royal Statistical Society. Series C (Applied Statistics)}
+      \field{number}{2}
+      \field{title}{Evolutionary Operation: A Method for Increasing Industrial Productivity}
+      \field{volume}{6}
+      \field{year}{1957}
+      \field{pages}{81\bibrangedash 101}
+      \range{pages}{21}
+      \verb{doi}
+      \verb 10.2307/2985505
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
