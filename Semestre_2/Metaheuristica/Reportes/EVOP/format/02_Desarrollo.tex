@@ -1,0 +1,226 @@
+\section{Desarrollo}
+% Metodologia / Desarrollo
+En nuestro caso se decidió optimizar el proceso de horneado en una panadería mientras la operación continúa normalmente. Se evalúan pequeños cambios en variables de control para reducir consumo energético y mejorar calidad sin afectar la producción.
+
+\subsection{Objetivo}
+
+\subsubsection*{Objetivo principal}
+Reducir el consumo específico de energía por bandeja en al menos 5\% durante el horneado, sin perder la calidad del producto ni el rendimiento de la línea.
+
+\subsubsection*{Criterios de éxito}
+\begin{itemize}
+  \item \textbf{Energía:} reducción media del consumo específico de energía $E_{\mathrm{esp}}$ $\geq 5\% $ respecto a la línea base (prueba \textit{t} bilateral, $p<0{.}05$).
+  \item \textbf{Calidad:} 
+    \begin{itemize}
+      \item Humedad interna $M$ dentro de $\pm 0{.}5$ puntos porcentuales del valor objetivo.
+      \item Color de corteza (escala 1--5): dentro de tolerancia definida (p.\,ej., $\pm 1$ punto o $\pm 2$ unidades $L^*$) puede ser medido con un higrómetro.
+      \item Defectos $D$ (\,\%\,)  no mayores a la línea base (prueba de proporciones, $p\ge 0{.}05$ para no-inferioridad).
+    \end{itemize}
+  \item \textbf{Productividad:} no reducir la salida de bandejas/hora en más de $1\%$ ni aumentar el tiempo de ciclo en más de 1 minuto.
+\end{itemize}
+
+\subsubsection*{Métricas y definiciones}
+\[
+E_{\mathrm{esp}}=\frac{\text{Energía consumida (kWh)}}{\text{Nº de bandejas horneadas}},\quad
+D=\frac{\text{Piezas defectuosas}}{\text{Piezas totales}}\times 100\%.
+\]
+El volumen específico (opcional) se estima como $V_{\mathrm{esp}}=\frac{\text{Volumen del pan}}{\text{Peso}}$ (mL/g). 
+
+\subsubsection*{Alcance }
+El EVOP se ejecutará durante \textbf{4 semanas}: 1 de preparación y 3 para ciclos en operación normal, con cambios pequeños y controlados.
+
+\subsubsection*{Restricciones}
+Mantener los parámetros dentro de límites de seguridad del horno y especificaciones del producto; todos los cambios serán reversibles y dentro de tolerancias.
+
+\subsection{Variables del EVOP}
+\subsubsection*{Factores de control (ajustables)}
+\begin{itemize}
+  \item Temperatura de horneado $T$ (\si{\celsius}):  $\Delta T={\SI{10}{\celsius}}$ alrededor de $T_0={\SI{155}{\celsius}}$.
+  \item Tiempo de horneado $H$ (\si{\minute}): $\Delta H={\SI{10}{\minute}}$ alrededor de $H_0={\SI{55}{\minute}}$.
+\end{itemize}
+
+\subsubsection*{Variables respuesta (medibles en producción)}
+\begin{itemize}[left=0pt]
+  \item Consumo específico de energía $E$ (\si{\kilo\watt\hour} por bandeja).
+  \item Humedad interna $M$ (\si{\percent}).
+  \item Color de corteza (escala visual 1--5).
+  \item Porcentaje de defectos $D$ (\si{\percent}).
+\end{itemize}
+
+\subsection{Diseño y Ejecución}
+Se proponen ajustes en nuestras variables para aplicar durante la operación normal. Cada ciclo cubre las cuatro combinaciones y se repite $C={4}$ veces.
+
+\begin{table}[H]\centering
+\caption{Matriz EVOP (codificada y real).}
+\begin{tabular}{cccccc}
+\toprule
+\multirow{2}{*}{Corrida} & \multicolumn{2}{c}{Factores codificados} & \multicolumn{2}{c}{Ajustes reales} \\
+\cmidrule(r){2-3}\cmidrule(l){4-5}
+ & $x_T$ & $x_H$ & $T$ (\si{\celsius}) & $H$ (\si{\minute}) & \\
+\midrule
+1 & $+1$ & $+1$ & $T_0+\Delta T$ & $H_0+\Delta H$ \\
+2 & $+1$ & $-1$ & $T_0+\Delta T$ & $H_0-\Delta H$ \\
+3 & $-1$ & $+1$ & $T_0-\Delta T$ & $H_0+\Delta H$ \\
+4 & $-1$ & $-1$ & $T_0-\Delta T$ & $H_0-\Delta H$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+También se considera no aplicar la corrida siempre en el mismo orden, ya que esto puede generar sesgos de tiempo o temperatura del ambiente. Por lo cual debe ejecutarse en orden aleatorio.
+
+Con cada corrida se registraran los resultados en la siguiente tabla:
+\begin{table}[H]\centering
+\caption{Formato de registro por corrida (un extracto).}
+\begin{tabular}{cccccccc}
+\toprule
+Ciclo & Corrida & $T$ & $H$ & $E$ & $M$ & Color & $D$\\
+ &  & (\si{\celsius}) & (\si{\minute}) & (\si{\kilo\watt\hour/bandeja}) & (\si{\percent}) & (1--5) & (\si{\percent}) \\
+\midrule
+1 & 1 &  &  &  &  &  &  \\
+1 & 2 &  &  &  &  &  &  \\
+1 & 3 &  &  &  &  &  &  \\
+1 & 4 &  &  &  &  &  &  \\
+\midrule
+\multicolumn{8}{l}{\footnotesize Observaciones: {...}}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Análisis de Resultados}
+\subsubsection*{Modelo lineal con interacción}
+Para una respuesta $Y$ (p.ej., $E$ o $D$), usar:
+\begin{equation}
+Y = \beta_0 + \beta_T x_T + \beta_H x_H + \beta_{TH} x_T x_H + \varepsilon,
+\end{equation}
+donde $x_T,x_H\in\{-1,+1\}$. Un efecto $\beta$ significativamente distinto de cero indica dirección de mejora.
+
+\subsubsection*{Contrastes de efectos (cálculo manual rápido)}
+Promedios en alto/bajo:
+\[
+\hat{\beta}_T=\frac{\bar{Y}_{x_T=+1}-\bar{Y}_{x_T=-1}}{2},\quad
+\hat{\beta}_H=\frac{\bar{Y}_{x_H=+1}-\bar{Y}_{x_H=-1}}{2},\quad
+\hat{\beta}_{TH}=\frac{\bar{Y}_{x_Tx_H=+1}-\bar{Y}_{x_Tx_H=-1}}{2}.
+\]
+Repetir por ciclo y promediar sobre $C$ ciclos. Visualizar con gráficos de efectos e intervalos de confianza.
+
+\subsubsection*{Ejemplo}
+Se evalúa el consumo específico de energía $Y$ (kWh/bandeja) con dos factores codificados:
+$x_T\in\{-1,+1\}$ (temperatura: $\pm 10\,^{\circ}\mathrm{C}$) y
+$x_H\in\{-1,+1\}$ (tiempo: $\pm 10$ min).
+
+\begin{table}[H]\centering
+\caption{Corridas del diseño y respuesta observada $Y$.}
+\begin{tabular}{cccc}
+\toprule
+Corrida & $x_T$ & $x_H$ & $Y$ (kWh/bandeja) \\
+\midrule
+1 & +1 & +1 & 2.60 \\
+2 & +1 & -1 & 2.45 \\
+3 & -1 & +1 & 2.55 \\
+4 & -1 & -1 & 2.40 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection*{Modelo}
+El modelo lineal con interacción es:
+\[
+Y = \beta_0 + \beta_T x_T + \beta_H x_H + \beta_{TH} x_T x_H + \varepsilon.
+\]
+\subsubsection*{Estimación por contrastes (codificado)}
+Promedio general:
+\[
+\hat{\beta}_0 = \bar{Y} = \frac{2.60+2.45+2.55+2.40}{4} = 2.50.
+\]
+Efectos principales:
+\[
+\hat{\beta}_T =
+\frac{\bar{Y}\,\big|\,x_T=+1 - \bar{Y}\,\big|\,x_T=-1}{2}
+=
+\frac{\frac{2.60+2.45}{2} - \frac{2.55+2.40}{2}}{2}
+=
+\frac{2.525 - 2.475}{2} = 0.025,
+\]
+\[
+\hat{\beta}_H =
+\frac{\bar{Y}\,\big|\,x_H=+1 - \bar{Y}\,\big|\,x_H=-1}{2}
+=
+\frac{\frac{2.60+2.55}{2} - \frac{2.45+2.40}{2}}{2}
+=
+\frac{2.575 - 2.425}{2} = 0.075.
+\]
+Interacción:
+\[
+\hat{\beta}_{TH} =
+\frac{\bar{Y}\,\big|\,x_Tx_H=+1 - \bar{Y}\,\big|\,x_Tx_H=-1}{2}
+=
+\frac{\frac{2.60+2.40}{2} - \frac{2.45+2.55}{2}}{2}
+=
+\frac{2.50 - 2.50}{2} = 0.
+\]
+
+\subsubsection*{Modelo ajustado (codificado)}
+\[
+\hat{Y} = 2.50 + 0.025\,x_T + 0.075\,x_H + 0\cdot(x_Tx_H).
+\]
+
+\subsubsection*{Interpretación (codificado)}
+\begin{itemize}
+  \item $\hat{\beta}_0=2.50$: consumo promedio en los set-points centrales ($T_0, H_0$).
+  \item $\hat{\beta}_T=0.025$: mover la temperatura de $T_0$ a $T_0{+}10^{\circ}\mathrm{C}$ (cambio de $x_T=-1$ a $+1$) incrementa $Y$ en $0.025$ kWh/bandeja.
+  \item $\hat{\beta}_H=0.075$: mover el tiempo de $H_0$ a $H_0{+}10$ min (cambio de $x_H=-1$ a $+1$) incrementa $Y$ en $0.075$ kWh/bandeja.
+  \item $\hat{\beta}_{TH}=0$: no se detecta interacción en este rango.
+\end{itemize}
+
+\subsubsection*{Efectos en unidades naturales}
+Como $x_T=\pm 1$ representa $\pm 10^{\circ}\mathrm{C}$ y $x_H=\pm 1$ representa $\pm 10$ min:
+\[
+\text{Efecto por }^{\circ}\mathrm{C}\ \approx \frac{\hat{\beta}_T}{10} = \frac{0.025}{10} = 0.0025\ \text{kWh/bandeja/}^{\circ}\mathrm{C},
+\]
+\[
+\text{Efecto por minuto}\ \approx \frac{\hat{\beta}_H}{10} = \frac{0.075}{10} = 0.0075\ \text{kWh/bandeja/min}.
+\]
+\textbf{Implicación}: una disminución de $1$ min reduce en promedio $0.0075$ kWh/bandeja; una disminución de $1^{\circ}\mathrm{C}$ reduce en promedio $0.0025$ kWh/bandeja (siempre que la calidad permanezca dentro de tolerancias).
+
+\subsection{Criterios de decisión}
+
+\subsubsection*{Reglas de decisión (energía)}
+\begin{enumerate}[label=\textbf{D\arabic*.}, left=0pt]
+  \item \textbf{Dirección de mejora:} Si $\hat{\beta}_H>0$ (aumentar tiempo eleva $E_{\mathrm{esp}}$), entonces moverse hacia $x_H=-1$ (tiempos menores). Si $\hat{\beta}_T>0$, moverse hacia $x_T=-1$ (temperaturas menores). Priorizar el factor con mayor $|\hat{\beta}|$.
+  \item \textbf{Interacción:} Si $|\hat{\beta}_{TH}|$ es significativo, la dirección óptima depende de la combinación $T$–$H$; en este caso, realizar un \textit{follow-up} focal con pasos más finos alrededor del mejor cuadrante.
+  \item \textbf{Meta cuantitativa:} Aceptar el nuevo set-point si se demuestra una reducción de al menos \textbf{{$5\%$}} en $E_{\mathrm{esp}}$ respecto a la línea base, con $p<0{.}05$ o con intervalo de confianza de la diferencia completamente por debajo de 0.
+\end{enumerate}
+
+\subsubsection*{Salvaguardas de calidad (no-inferioridad)}
+Para cada métrica de calidad:
+\begin{itemize}[left=0pt]
+  \item \textbf{Humedad $M$:} Mantener $\Delta M$ dentro de \textbf{$\pm{0{.}5}$ puntos porcentuales} respecto a objetivo. Prueba de no-inferioridad con margen $\delta_M={0{.}5}$ p.p.
+  \item \textbf{Color:} 
+    \begin{itemize}
+      \item Escala 1--5: diferencia media dentro de $\pm{1}$ punto.
+    \end{itemize}
+  \item \textbf{Defectos $D$:} No mayor que la línea base (prueba de proporciones; margen de no-inferioridad $\delta_D={0{.}5}$ p.p.).
+\end{itemize}
+
+\subsubsection*{Regla de aceptación integral}
+\begin{quote}
+\textbf{Aceptar} el nuevo set-point si:(i) Disminuye el costo energético, y \\(ii) $M$, Color y $D$ no exceden en disminución dentro de los márgenes definidos.
+\end{quote}
+
+\subsection{Implementación y verificación}
+
+\subsubsection*{Plan de implementación}
+\begin{enumerate}[left=0pt]
+  \item \textbf{Capacitación y checklist} (Semana 1): calidad y mantenimiento; verificación de sensores y límites de seguridad; checklist operativo completado.
+  \item \textbf{Aplicación de set-points} (Semanas 2--3): implementar el plan cíclico EVOP (diseño $2^2$ a baja amplitud), con orden aleatorizado en cada ciclo y separación entre corridas de {\SI{1}{\minute}} para estabilización térmica.
+  \item \textbf{Registro de datos}: capturar $E_{\mathrm{esp}}$, $M$, Color, $D$, temperatura ambiental y observaciones de masa.
+  \item \textbf{Análisis intermedio}: al cierre de cada ciclo, revisar efectos y cumplimiento de salvaguardas; detener o ajustar si se exceden límites.
+\end{enumerate}
+
+\subsubsection*{Riesgos y planes de reversión}
+\begin{itemize}[left=0pt]
+  \item \textbf{Sobre/infra-cocción}: monitoreo de Color y $M$ por lote; si se excede tolerancia, revertir a $(T_0,H_0)$.
+  \item \textbf{Variación de materia prima}: registrar humedad de masa; si cambia $>{1{.}0}$ p.p., pausar ajustes y recalibrar objetivo.
+  \item \textbf{Inestabilidad térmica}: incremento de dispersión en $E_{\mathrm{esp}}$; verificar quemadores/ventiladores y sellos del horno antes de continuar.
+\end{itemize}
+
