@@ -14,6 +14,7 @@ while(True):
     cv2.imshow('Color',frame)
     cv2.imshow('Grayscale',gray)
     if cv2.waitKey(1) & 0xFF == ord('q'):
+        cv2.imwrite('./img/captured_image.png', frame)
         break
 
 # When everything done, release the capture
