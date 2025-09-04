@@ -25,7 +25,7 @@ cv2.line(img,(0,511),(511,0),(0,255,0),5) # Diagonal Inversa (X = linea 9 + line
 cv2.rectangle(img,(384,0),(510,128),(0,255,0),3) # Rectangulo
 cv2.circle(img,(447,63), 63, (0,0,255), -1) # Circulo
 cv2.ellipse(img,(256,256),(100,50),0,0,180,255,-1) # Elipse
-
+cv2.ellipse(img,(256,256),(50,100),90,0,180,255,-1) # Elipse
 
 pts = np.array([[10,5],[20,30],[70,20],[50,10]], np.int32)
 pts = pts.reshape((-1,1,2))
