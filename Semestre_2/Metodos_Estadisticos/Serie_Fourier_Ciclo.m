@@ -6,7 +6,7 @@ T=(2*pi)/w0;
 t=-T/2:pi/300:T/2;
 cte=4/pi;
 term=200;
-n=1;
+% Funcion impar por que contiene senos
 %Armonico=(1/n)*sin(n*w0*t);
 Armonico = 0;
 plot(t,Armonico,'b','LineWidth',2);
