@@ -5,6 +5,7 @@
 \usepackage{float}
 \usepackage{amsmath}
 \usepackage{tikz}
+\usepackage{fix-cm} % Allow scalable Computer Modern fonts to avoid font substitution warnings
 
 % Options
 %  [anonymous]  Provides output without author names, affiliations or acknowledgments to facilitate double-anonymous peer-review
@@ -18,151 +19,134 @@
 
 \begin{document}
 
-\articletype{Tarea 3} %	 e.g. Paper, Letter, Topical Review...
+\articletype{Tarea 5} %	 e.g. Paper, Letter, Topical Review...
 
-\title{Descenso de Gradiente}
+\title{Descenso de Gradiente de n-Dimensiones}
 
 \author{Daniel González$^1$\orcid{0000-0000-0000-0000}}
 
-\affil{$^1$Facultad de Ingeniería, Universidad Autónoma de Querétaro, Querétaro, México \\ 21/08/2025}
+\affil{$^1$Facultad de Ingeniería, Universidad Autónoma de Querétaro, Querétaro, México \\ 08/09/2025}
 
 \email{dgonzalez16@alumnos.uaq.mx}
 
-\keywords{descenso gradiente, plano, mínimo, derivada, epocas}
+\keywords{descenso gradiente, plano, mínimo, espacio, épocas, n-dimensiones}
 
 \begin{abstract}
-El descenso de gradiente consiste en tomar el principio de la gradiente la cual nos indica en tomar la ruta del punto más alto de una función, sin embargo en este caso al tomar la dirección contraria encontraríamos el punto más bajo. Imaginemos que estamos en una montaña, y quisiéramos encontrar el punto más bajo con esto podríamos avanzar paso a paso en la dirección de mayor pendiente descendente hasta llegar al mínimo.
+El descenso de gradiente es un método iterativo de optimización que utiliza la gradiente para aproximarse al mínimo de una función de costo. En el caso de $n$ características, la gradiente se expresa como un vector de derivadas parciales, donde cada componente representa la dirección de mayor pendiente respecto a una variable. Al avanzar en dirección contraria de ese vector, el algoritmo actualiza los parámetros paso a paso según la regla
+
+\[
+\theta_j := \theta_j - \alpha \frac{\partial J(\boldsymbol{\theta})}{\partial \theta_j}, \quad j=1,2,\dots,n,
+\]
+
+donde $\alpha$ es la tasa de aprendizaje. De esta manera, se logra descender progresivamente sobre la superficie multidimensional de la función hasta aproximarse a un mínimo local o global.
 \end{abstract}
 
 \section{Introducción}
 
-El descenso de gradiente es un método iterativo para encontrar el mínimo de una función.  
-Dada una función
+En el aprendizaje automático supervisado, el objetivo es encontrar una función que modele la relación entre un conjunto de características de entrada y una variable de salida. Para ilustrar el proceso, a menudo se comienza con el caso más simple, en el cual el modelo depende de una sola característica. Sin embargo, los problemas reales requieren generalizar a múltiples características, lo que hace necesaria una notación más compacta y eficiente.
+
+Con este propósito, los parámetros del modelo se agrupan en un vector columna
 \[
-f(\theta),
+\boldsymbol{\theta} = 
+\begin{bmatrix}
+\theta_0 \\
+\theta_1 \\
+\vdots \\
+\theta_n
+\end{bmatrix},
 \]
-donde $\theta$ representa los parámetros, el objetivo es encontrar el valor de $\theta$ que minimiza $f$.
+mientras que las características de los $m$ ejemplos de entrenamiento se organizan en una matriz
+\[
+X = 
+\begin{bmatrix}
+x_1^0 & x_1^1 & \cdots & x_1^n \\
+x_2^0 & x_2^1 & \cdots & x_2^n \\
+\vdots & \vdots & \ddots & \vdots \\
+x_m^0 & x_m^1 & \cdots & x_m^n
+\end{bmatrix},
+\]
+donde $x_i^0 = 1$ para todo $i = 1, \dots, m$, lo que permite incorporar el término de sesgo en el modelo.
 
-\begin{itemize}
-    \item El gradiente es el vector de derivadas parciales:
-    \begin{equation}
-    \nabla f(\theta) = \left( \frac{\partial f}{\partial \theta_1}, \frac{\partial f}{\partial \theta_2}, \dots, \frac{\partial f}{\partial \theta_n} \right).
-    \label{d_parcial}
-    \end{equation}
+Bajo esta formulación, la hipótesis se expresa como
+\[
+h_\theta = X \cdot \boldsymbol{\theta},
+\]
+que produce un vector de dimensión $m \times 1$ con las predicciones correspondientes a cada ejemplo de entrenamiento.  
 
+Para evaluar la calidad de dichas predicciones se emplea la función de costo basada en el error cuadrático medio (MSE), definida como
+\[
+J(\theta) = \frac{1}{2m} \sum_{i=1}^{m} \big(h_\theta(x_i) - y_i\big)^2,
+\]
+la cual, en notación vectorial, puede escribirse como
+\[
+J(\theta) = \frac{1}{2m} (X \cdot \boldsymbol{\theta} - Y)^T (X \cdot \boldsymbol{\theta} - Y),
+\]
+donde
+\[
+Y = 
+\begin{bmatrix}
+y_1 \\
+y_2 \\
+\vdots \\
+y_m
+\end{bmatrix}.
+\]
 
-    \item La actualización de parámetros se realiza con la regla:
-    \[
-    \theta \leftarrow \theta - \eta \, \nabla f(\theta),
-    \]
-    donde $\eta > 0$ es la tasa de aprendizaje.
-\end{itemize}
+El siguiente paso consiste en optimizar esta función de costo para encontrar los parámetros que mejor se ajustan a los datos. Para ello se utiliza el algoritmo de gradiente descendente, que actualiza los parámetros de manera iterativa siguiendo la regla
+\[
+\theta_j := \theta_j - \alpha \frac{\partial}{\partial \theta_j} J(\theta), \quad j = 0, 1, \dots, n,
+\]
+donde $\alpha$ representa la tasa de aprendizaje. El proceso se repite hasta alcanzar la convergencia o completar un número predeterminado de iteraciones, permitiendo aproximarse al mínimo de la función de costo y, por tanto, al modelo más adecuado.
 
-Al repetir este proceso varias veces, los parámetros $\theta$ se acercan a un mínimo de la función.
-
-
-En machine learning, la función $f(\theta)$ corresponde a la función de pérdida o error, que mide qué tan bien predice el modelo.  
-El descenso de gradiente ajusta los parámetros (por ejemplo, los \emph{pesos} de una red neuronal) para minimizar dicho error y así mejorar el desempeño del modelo.
-
-\subsubsection*{Ejemplo gráfico}
-
-\begin{center}
-\begin{tikzpicture}[scale=1.2]
-  % Ejes
-  \draw[->] (-2,0) -- (2,0) node[right] {$\theta$};
-  \draw[->] (0,-0.2) -- (0,3) node[above] {$f(\theta)$};
-  
-  % Curva cuadrática
-  \draw[thick, blue, domain=-1.5:1.5, samples=50] plot (\x,{(\x)^2+0.5});
-  
-  % Puntos de iteraciones
-  \fill[red] (-1.2,1.94) circle (2pt) node[above left] {Inicio};
-  \fill[red] (-0.6,0.86) circle (2pt);
-  \fill[red] (-0.3,0.59) circle (2pt);
-  \fill[red] (0,0.5) circle (2pt) node[below right] {Mínimo};
-  
-  % Flechas
-  \draw[->, red] (-1.2,1.94) -- (-0.6,0.86);
-  \draw[->, red] (-0.6,0.86) -- (-0.3,0.59);
-  \draw[->, red] (-0.3,0.59) -- (0,0.5);
-\end{tikzpicture}
-\end{center}
 
 \section{Desarrollo}
-Se plantea la función inicial:
-\begin{equation} \label{ec_init}
-\begin{aligned}
-   z &= x^3 + x^2 + y^3 + y^2 \\
-   z &= \theta_0^3 + \theta_0^2 + \theta_1^3 + \theta_1^2
-\end{aligned}
-\end{equation}
-
-Partiendo de la ecuación ~\ref{d_parcial} calculamos la derivada parcial de esta para obtener:
-
-\begin{equation}
-    \frac{\partial}{\partial x} = 3x^2 + 2x
-\end{equation}
-\begin{equation}
-    \frac{\partial}{\partial y} = 3y^2 + 2y
-\end{equation}
-
-Una vez que tenemos esto, ya podemos obtener nuestra función para calcular el descenso de gradiente.
-El \textbf{gradiente} de $z$ es:
-\begin{equation}
-\nabla z(\boldsymbol{\theta}) =
-\begin{bmatrix}
-\frac{\partial z}{\partial \theta_0} \\
-\frac{\partial z}{\partial \theta_1}
-\end{bmatrix}
-=
-\begin{bmatrix}
-3\theta_0^2 + 2\theta_0 \\
-3\theta_1^2 + 2\theta_1
-\end{bmatrix}.
-\label{eq:grad}
-\end{equation}
-
-Con un \textit{learning rate} $\eta>0$, la regla de actualización iterativa (descenso de gradiente) es:
-\begin{equation}
-\boldsymbol{\theta}^{(k+1)} \;=\; \boldsymbol{\theta}^{(k)} \;-\; \eta \,\nabla z\!\left(\boldsymbol{\theta}^{(k)}\right),
-\label{eq:gd_update}
-\end{equation}
-es decir, componente a componente:
-\begin{align}
-\theta_0^{(k+1)} &= \theta_0^{(k)} - \eta\,\big(3(\theta_0^{(k)})^2 + 2\theta_0^{(k)}\big), \\
-\theta_1^{(k+1)} &= \theta_1^{(k)} - \eta\,\big(3(\theta_1^{(k)})^2 + 2\theta_1^{(k)}\big).
-\end{align}
-
-Con esto en mente pasamos al código para poder evaluar el plano de nuestra función, con nuestras $\theta_0$ y $\theta_1$ iniciales así como un learning rate que sera $\alpha$ y un numero de épocas.
-
-Nuestros valores serán:
-\begin{equation}\label{condiciones_iniciales}
-    \begin{aligned}
-        \theta_0 = 0.5 \\
-        \theta_1 = 0.5 \\
-        \alpha = 0.01 \\
-        epoch = 5000
-    \end{aligned}
-\end{equation}
-
-Con estos valores vamos a mostrar las iteraciones en nuestra gráfica y obtenemos lo siguiente:
 \begin{figure}[H]
  \centering
-        \includegraphics[width=0.5\textwidth]{rsc/gradiente_descendiente.png}
- \caption{Grafica del plano de la ecuacion\ref{ec_init} con gradiente descendente apartir de las condiciones \ref{condiciones_iniciales}}
+        \includegraphics[width=0.5\textwidth]{rsc/funcion_n.png}
+ \caption{Funcion para N dimensiones}
 \label{fig1}
 \end{figure}
 
-Como se puede ver nuestro gradiente tiende a cero.
+A partir de la función propuesta en la figura \ref{fig1}, tomaremos nuestra DB propuesta en problemas anteriores (Advertising.csv) y usaremos como características las 3 columnas de ventas, es decir, TV, Radio y Newspaper.
+Recordemos que se crea nuestra matriz de características $X + (Columna de 1s)$ y nuestro vector de etiquetas $Y$ el cual seran nuestras ventas(``Sales'').
 
-\section{Conclusiones}
-El descenso de gradiente confirma encontrar mínimos en funciones de varias variables.  
-A partir de la función propuesta y del cálculo de sus derivadas parciales, se pudo construir la regla de actualización que, con ayuda de un ciclo de iteraciones, nos guía hacia valores donde el gradiente tiende a cero como se ve en la figura \ref{fig1}.  
+Agregaremos tambien la opcion de guardar el hostorico para poder graficar la evolucion de los parametros y la funcion de costo. Ademas de nuestro 
+Error cuadratico medio (MSE) que nos ayudara a que es la mejor solucion.
 
-Durante el desarrollo podemos ver cómo la elección de una tasa de aprendizaje adecuada y un número suficiente de épocas permiten visualizar la convergencia de los parámetros al mínimo local de la función. También se destacó la relevancia de este procedimiento en machine learning, donde el descenso de gradiente se utiliza para ajustar los parámetros de un modelo y minimizar la función de pérdida, mejorando así su capacidad predictiva.  
+Con esto obtenemos lo siguiente:
 
-Con esto es posible demostramos la base matemática así como la aplicación práctica del descenso de gradiente, la cual es una herramienta fundamental en optimización y aprendizaje automático.
+\begin{figure}[H]
+ \centering
+        \includegraphics[width=0.5\textwidth]{rsc/Resultados.png}
+ \caption{Resultados del modelo}
+\label{fig2}
+\end{figure}
 
+Dado que al ser un hyperplano en 4 dimensiones no podemos graficar la funcion de costo, pero si podemos ver la evolucion de los parametros y 
+el error cuadratico medio (MSE) en la figura \ref{fig3}.
+
+\begin{figure}[H]
+ \centering
+        \includegraphics[width=0.5\textwidth]{rsc/Grafica_Error.png}
+ \caption{Evolución del MSE}
+\label{fig3}
+\end{figure}
+
+Como ejercicio complementario a nuestro ejercicio de n-Dimensiones, calculamos el descenso de gradiente para 2 variables, es decir,
+una funcion en 3 dimensiones la cual nos muestra un plano en el espacio tridimensional.
+\begin{figure}[H]
+ \centering
+        \includegraphics[width=0.5\textwidth]{rsc/Espacio_3D.png}
+ \caption{Regresion Lineal en 3D de 2 variables}
+\label{fig4}
+\end{figure}
+
+\section{Conclusión}
+
+La formulación vectorizada del modelo lineal permite generalizar de manera eficiente el uso de múltiples características en problemas de aprendizaje automático.
+Al expresar la hipótesis y la función de costo en notación matricial, se facilita la implementación computacional y se optimiza el cálculo en grandes volúmenes de datos.
+Con esto determinamos que el algoritmo de gradiente descendente es una herramienta fundamental para ajustar los parámetros de nuestro modelo, 
+garantizando un entrenamiento más eficiente.
 
 %\begin{thebibliography}{00}
 %\bibliography{references}
