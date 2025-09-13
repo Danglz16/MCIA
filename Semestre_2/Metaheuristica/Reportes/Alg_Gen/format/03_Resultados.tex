@@ -1,3 +1,19 @@
 \section{Resultados}
 % Se muestran e interpretan los resultados como se obtuvieron
 
+En la figura~\ref{PoblacionInicial} podemos ver la población inicial generada aleatoriamente, donde el individuo con mayor aptitud es 0.87 
+mientras se desarrolla el AG podemos observar como la aptitud promedio mejora generación tras generación, sin embargo, no siempre el mejor 
+individuo de una generación es mejor que el de la generación anterior, de hecho en este caso como podemos ver más adelante en la figura~\ref{Gen_final},
+el mejor individuo de la generacio 0 es decir nuestra población inicial, se mantiene como el mejor individuo durante todas las generaciones.
+
+Esto puede ser un indicativo de que el AG no está explorando lo suficiente el espacio de soluciones, por otro lado esto seria algo esperado ya que
+no se implementó ninguna técnica de mutacion, por lo que el AG se basa únicamente en la selección y el cruce para generar nuevas soluciones.
+En la figura~\ref{Grafica} podemos observar como la aptitud promedio de la población mejora generación tras generación, pero el maximo se mantiene constante
+debido a que el mejor individuo de la población inicial se mantiene como el mejor individuo durante todas las generaciones.
+
+Podemos ver que el promedio empieza a converger hacia el maximo, lo que indica que la población está convergiendo hacia una solución óptima, sin embargo, no
+podemos asegurar que esta solución es la óptima ya que despues de unas generaciones se estanca.
+
+Por otro lado al implementar el segundo metodo de cruce (2 puntos) podemos observar en la figura~\ref{Pob_final_2ptos} un comportamiento similar donde el mejor
+individuo de la población inicial se mantiene como el mejor individuo durante todas las generaciones, sin embargo, es importante destacar que el promedio de la población
+sube rapidamente en las primeras generaciones y depues se estanca, debido a que la población ya no mejora.
