@@ -1,0 +1,13 @@
+\section{Discusión}
+% Interpretacion propia de los datos
+
+A lo largo del desarrollo del proyecto podemos ver que la implementacion correcta de cada etapa es primordial para el correcto funcionamiento
+del AG esto toma especial relevancia al momento de mencionar que no se implemento la mutacion ya que este paso nos permitiria tener un mayor
+grado de exploracion del espacio de soluciones, lo cual podria llevarnos a encontrar mejores soluciones en menos generaciones y de esta manera
+evitar el estancamiento, ademas esto podria hacer que nuestro super individuo de la generacion 0 se mantenga siempre como el mejore.
+
+Otro punto a destacar es como el cambio en el metodo de cruce afecta el rendimiento del algoritmo, en este caso el cruce por un punto
+mostro ser mas efectivo que el cruce con dos puntos, esto puede deberse a que al tener un solo punto de corte se mantiene una mayor 
+parte de la informacion genetica de los padres, lo que permite que las soluciones generadas sean mas cercanas a las mejores soluciones 
+encontradas hasta el momento. Aunque por otro lado el usar dos puntos hace que la aptitud crezca mas rapidamente, pero esto puede llevar a que
+el algoritmo se estanque en un optimo local con la misma velocidad como fue el caso.
