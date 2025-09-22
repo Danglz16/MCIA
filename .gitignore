@@ -1,0 +1,5 @@
+# Compiled files and build directories from LaTeX projects
+*/build/*
+*.latexmkrc
+*.main.synctex.gz
+
