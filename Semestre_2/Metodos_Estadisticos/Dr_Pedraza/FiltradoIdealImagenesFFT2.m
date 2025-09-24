@@ -51,11 +51,15 @@ mask_sp=zeros(size(imageA));
 cx=round(ax/2);
 cy=round(ay/2);
 
+% Tamaño del filtro
 tam=20;
 
 mask_lp(cx-tam:cx+tam,cy-tam:cy+tam)=1;
 
 mask_hp=1-mask_lp;
+
+figure,
+imagesc(mask_lp);colormap(gray);
 
 lim_sup=21;
 lim_inf=11;
