@@ -1,6 +1,4 @@
-/roberta-cls/checkpoint-180
-/roberta-cls/checkpoint-360
-/roberta-cls/checkpoint-540
-
-/model/checkpoint-180
-/model/checkpoint-350
+# Ignore checkpoints and other files created during training
+# of machine learning models.
+roberta-cls/checkpoint-**
+model/checkpoint-**
