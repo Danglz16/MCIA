@@ -4,7 +4,7 @@ clc;
 
 %%% Procesamiento de una señal de audio usando MATLAB
 %%% Señal compuesta de 3 frecuencias
-%%% Selecci�n del tipo de filtrado
+%%% Selección del tipo de filtrado
 % 1 -> Pasa bajo
 % 2 -> Pasa alto
 % 3 -> Pasa banda
@@ -56,10 +56,10 @@ y = s1 + s2 + s3;
 
 subplot(411)
 plot(t,y)
-title('SEÑAL ORIGINAL')% T�tulo
+title('SEÑAL ORIGINAL')% Título
 xlabel('Tiempo (s)')         % Etiqueta del eje X
 ylabel('Amplitud (V)')      % Etiqueta del eje Y
-xlim([0 20/1000])            % L�mite de la señal
+xlim([0 20/1000])            % Límite de la señal
 
 %%% Grabar y reproducir la señal de audio
 
@@ -71,9 +71,9 @@ xlim([0 20/1000])            % L�mite de la señal
 
 subplot(412)
 
-% Llamado a la funci�n que calcula la FFT
+% Llamado a la función que calcula la FFT
 
-fft_signal(y,fs);title('ESPECTRO DE LA señal ORIGINAL');
+fft_signal(y,fs);title('ESPECTRO DE LA SEÑAL ORIGINAL');
 xlim([0 2500]);
 
 
@@ -83,7 +83,7 @@ switch tipo
 
     case 1
 
-        % C�lculo de los coeficientes del filtro (filtro pasa bajas)
+        % Cálculo de los coeficientes del filtro (filtro pasa bajas)
         % Este filtrado deja solo la señal de 1000 Hz
         % Frecuencia normalizada
 
@@ -95,7 +95,7 @@ switch tipo
 
         %- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-        % C�lculo de los coeficientes del filtro (filtro pasa bajas)
+        % Cálculo de los coeficientes del filtro (filtro pasa bajas)
         % Este filtrado deja solo la señal de 2000 Hz
         % Frecuencia normalizada
 
@@ -107,7 +107,7 @@ switch tipo
 
         %- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-        % C�lculo de los coeficientes del filtro (filtro pasa banda)
+        % Cálculo de los coeficientes del filtro (filtro pasa banda)
         % Este filtrado deja solo la señal de 1500 Hz
         % Frecuencias normalizadas
 
@@ -134,20 +134,20 @@ end
 
 y_Low = filtfilt(b, a, y);
 
-% Graficaci�n de la señal en el tiempo
+% Graficación de la señal en el tiempo
 
 subplot(413);
 plot(t,y_Low);
-title('señal FILTRADA');
+title('SEÑAL FILTRADA');
 xlabel('Tiempo (s)');
 ylabel('Amplitud (V)');
 xlim([0 20/1000]);
 
-% Graficaci�n de la señal en frecuencia
+% Graficación de la señal en frecuencia
 
 subplot(414)
 
-% Llamado a la funci�n que calcula la FFT
+% Llamado a la función que calcula la FFT
 
-fft_signal(y_Low,fs);title('ESPECTRO DE LA señal FILTRADA')
+fft_signal(y_Low,fs);title('ESPECTRO DE LA SEÑAL FILTRADA')
 xlim([0 2500])

@@ -2,36 +2,39 @@ clear all;
 close all;
 clc;
 
-%%% Procesamiento de una señal de audio usando MATLAB
+%%% Procesamiento de una seÃ±al de audio usando MATLAB
 
-%%% Selección del tipo de filtrado
+%%% SelecciÃ³n del tipo de filtrado
 % 1 -> Pasa bajo
 % 2 -> Pasa alto
 % 3 -> Pasa banda
 
-tipo=1;
+tipo=3;
 
-%%% Leer la señal de audio
+%%% Leer la seÃ±al de audio
 
 %[y,fs]=wavread('Yabu_mono');
 %[y,fs] = audioread('Yabu_mono.wav');
-[y,fs] = audioread('Mas que tu amigo.wav');
+[file,path] = uigetfile({'*.wav'}, 'File Selector');
+ruta = strcat(path,file);
 
-% y -> muestras de la señal
+[y,fs] = audioread(ruta);
+
+% y -> muestras de la seÃ±al
 % fs-> frecuencia de muestreo
 
-% Graficar la señal original
+% Graficar la seÃ±al original
 subplot(411)
 T=length(y)/fs;
 t=linspace(0,T,T*fs);
 plot(t,y)
-title('SEÑAL ORIGINAL')% Título
+title('SEÃ‘AL ORIGINAL')% TÃ­tulo
 xlabel('Tiempo (s)')         % Etiqueta del eje X
 ylabel('Amplitud (V)')      % Etiqueta del eje Y
 
-% xlim([0 20/])            % Límite de la señal
+% xlim([0 20/])            % LÃ­mite de la seÃ±al
 
-%%% Reproducir la señal de audio
+%%% Reproducir la seÃ±al de audio
 
 %%% wavplay(0.1*y,fs)
 %%% Nota: la funcion wavplay es obsoleta
@@ -40,21 +43,21 @@ ylabel('Amplitud (V)')      % Etiqueta del eje Y
 player = audioplayer(0.1*y,fs);
 play(player);
 
-%%% FFT de la señal
+%%% FFT de la seÃ±al
 
 subplot(412)
 
-% Llamado a la función que calcula la FFT
+% Llamado a la funciÃ³n que calcula la FFT
 
-fft_signal(y,fs);title('ESPECTRO DE LA SEÑAL ORIGINAL');
+fft_signal(y,fs);title('ESPECTRO DE LA SEÃ‘AL ORIGINAL');
 xlim([0 4e3]);
 
-%%% Filtrado de la señal
+%%% Filtrado de la seÃ±al
 
 switch tipo
     case 1
-        % Cálculo de los coeficientes del filtro (filtro pasa bajas)
-        % Este filtrado deja solo la señal por debajo de 500 Hz        
+        % CÃ¡lculo de los coeficientes del filtro (filtro pasa bajas)
+        % Este filtrado deja solo la seÃ±al por debajo de 500 Hz        
 
         titulo='FILTRO PASA BAJAS';
 
@@ -67,9 +70,9 @@ switch tipo
 
         %- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-        % Cálculo de los coeficientes del filtro (filtro pasa altas)
+        % CÃ¡lculo de los coeficientes del filtro (filtro pasa altas)
 
-        % Este filtrado deja solo la señal por encima de 500 Hz
+        % Este filtrado deja solo la seÃ±al por encima de 500 Hz
 
         titulo='FILTRO PASA ALTAS';
 
@@ -83,9 +86,9 @@ switch tipo
 
         %- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-        % Cálculo de los coeficientes del filtro (filtro pasa banda)
+        % CÃ¡lculo de los coeficientes del filtro (filtro pasa banda)
 
-        % Este filtrado deja solo la señal de 2KHz a 3KHz
+        % Este filtrado deja solo la seÃ±al de 2KHz a 3KHz
 
         % Frecuencias normalizadas
 
@@ -95,7 +98,7 @@ switch tipo
 
         Rp = 3; Rs = 40; % Rizado de la banda de paso y de parada (s)
 
-        [n,Wn] = buttord(Wp,Ws,Rp,Rs);% Orden del filtro y frecuencia de corte óptima
+        [n,Wn] = buttord(Wp,Ws,Rp,Rs);% Orden del filtro y frecuencia de corte ï¿½ptima
 
         [b,a] = butter(n,Wn);      % Coeficientes del filtro       
 
@@ -103,30 +106,30 @@ switch tipo
 
 end
 
-% Filtrado de la señal
+% Filtrado de la seÃ±al
 
 y_Low = filtfilt(b, a, y);
 
-% Graficación de la señal en el tiempo
+% GraficaciÃ³n de la seÃ±al en el tiempo
 
 subplot(413)
 
 plot(t,y_Low)
 
-title('SEÑAL FILTRADA')
+title('SEÃ‘AL FILTRADA')
 
 xlabel('Tiempo (s)')
 
 ylabel('Amplitud (V)')
 
 
-% Graficación de la señal en frecuencia
+% GraficaciÃ³n de la seÃ±al en frecuencia
 
 subplot(414)
 
-% Llamado a la función que calcula la FFT
+% Llamado a la funciÃ³n que calcula la FFT
 
-fft_signal(y_Low,fs);title('ESPECTRO DE LA SEÑAL FILTRADA')
+fft_signal(y_Low,fs);title('ESPECTRO DE LA SEÃ‘AL FILTRADA')
 
 xlim([0 4e3]);
 

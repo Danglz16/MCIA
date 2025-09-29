@@ -1,0 +1,4 @@
+# Ignore checkpoints and other files created during training
+# of machine learning models.
+roberta-cls/checkpoint-**
+model/checkpoint-**
