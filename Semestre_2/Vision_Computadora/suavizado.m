@@ -25,15 +25,25 @@ subplot(222); imshow(R1); title('A Gauseano 15x15 (Suavizado)')
 
 % Perfilado 
 % (Laplaciano + identidad) aplicado a la imagen para el perfilado
-Laplacioano = [-1, -1, -1
+Laplaciano = [  -1, -1, -1
                 -1,  8, -1
                 -1, -1, -1];
 
-R2 = zeros(size(A));
+a=1;
+Lap_var = [ 0, -a, 0
+            -a,  4, -a
+            0, -a, 0];
 
-if length(size(A)) == 3
-    R2(:,:,1) = conv2(A(:, :, 1), Laplacioano, 'same'); % M Cambia segun cuantas comboluciones se quieran agregar
-    R2(:,:,2) = conv2(A(:, :, 2), Laplacioano, 'same');
-    R2(:,:,3) = conv2(A(:, :, 3), Laplacioano, 'same');
+Identidad = [ 0 , 0 , 0
+              0 , 1 , 0
+              0 , 0 , 0];
+
+Perfilado = Lap_var + Identidad;
+R2 = zeros(size(R1));
+
+if length(size(R1)) == 3
+    R2(:,:,1) = conv2(R1(:, :, 1), Perfilado, 'same');
+    R2(:,:,2) = conv2(R1(:, :, 2), Perfilado, 'same');
+    R2(:,:,3) = conv2(R1(:, :, 3), Perfilado, 'same');
 end
 subplot(223); imshow(R2); title('A Laplaciano (Perfilado)')
