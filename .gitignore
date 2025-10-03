@@ -3,3 +3,6 @@
 *.latexmkrc
 *.main.synctex.gz
 
+# Test or Copy files
+*_copy.*
+*_test.*
