@@ -1,0 +1,30 @@
+\section{Discusión}
+% Interpretacion propia de los datos
+
+Como se mencionó en la sección~\ref{calculo_distancias}, el cálculo de distancias entre ciudades se realizó utilizando la fórmula de Haversine, que es adecuada para calcular 
+distancias entre puntos en la superficie de una esfera, como la Tierra. Esta elección es crucial para obtener resultados precisos en el contexto del TSP, ya que las distancias 
+reales entre ciudades afectan directamente la optimización de la ruta. Este es el primer punto a considerar al analizar los resultados obtenidos ya que el calculo con coordenadas
+planas hubiera introducido errores significativos en la estimación de distancias reales entre ciudades ya que se consideraria una linea recta que en una esfera corta partes de la 
+superficie, estas ligeras curvaturas pueden verse en los mapas de las rutas obtenidas.
+
+Para la parte de la cruza, se utilizaron dos métodos: PMX y PBX, ambos diseñados para preservar la validez de las rutas generadas el principal componente en el PMX durante la
+implementacion fue asegurar que no se repitieran ciudades en la ruta hija, lo cual se logró mediante un mapeo cuidadoso de los segmentos intercambiados entre los padres ya que en 
+primeras instancias se presentaron errores donde se hacia un ciclo infinito por que no existian posiciones validas para las ciudades, por lo cual se implementaron validaciones 
+adicionales para garantizar que cada ciudad apareciera exactamente una vez en la ruta resultante. En el caso del PBX, el desafío principal fue mantener el orden relativo de las 
+ciudades no seleccionadas, lo cual se logró mediante la eliminación cuidadosa de duplicados y el llenado de las posiciones restantes con los elementos sobrantes del segundo padre.
+
+En cuanto a los métodos de mutación, la mutación por barajado (scramble) y la mutación por intercambio de bloques (block transpose) fueron seleccionadas por su capacidad para
+introducir diversidad en la población sin alterar significativamente la estructura de las rutas. La mutación por barajado altera el orden interno de un subconjunto de ciudades,
+lo que puede ayudar a explorar nuevas combinaciones sin cambiar la posición relativa de las ciudades fuera del subconjunto afectado. Por otro lado, la mutación por intercambio de
+bloques modifica la posición de segmentos enteros de la ruta, lo que puede resultar en cambios más drásticos en la estructura de la solución, pero también en una mayor exploración 
+del espacio de búsqueda.
+
+Con respecto a los resultados obtenidos, es evidente que el tamaño de la población inicial tiene un impacto significativo en la diversidad de soluciones exploradas por el algoritmo.
+Una población más grande tiende a ofrecer una mayor variedad de rutas, lo que puede ayudar a evitar la convergencia prematura a óptimos locales. Sin embargo, también implica un 
+mayor costo computacional, ya que se deben evaluar más soluciones en cada generación. Tambien podemos observar que la cruza PBX tiende a generar soluciones ligeramente menos óptimas 
+pero más rapidas al momento de converger en comparación con PMX en este caso específico pero este ultimo presenta mejores resultados, aunque ambas cruces demostraron ser efectivas 
+para explorar el espacio de soluciones.
+
+Podemos observar que tambien el tener tantas generaciones (1000) puede ser contraproducente ya que en la mayoria de los casos la aptitud se estabiliza mucho antes de llegar a este 
+punto, por lo que se podria considerar reducir el numero de generaciones para mejorar la eficiencia del algoritmo sin sacrificar significativamente o principalmente buscar un mejor
+criterio de paro que no sea un numero fijo de generaciones.

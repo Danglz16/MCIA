@@ -1,7 +1,7 @@
 # Compiled files and build directories from LaTeX projects
-*/build/*
+*\build
 *.latexmkrc
-*.main.synctex.gz
+*main.synctex.gz
 
 # Test or Copy files
 *_copy.*
