@@ -1,7 +1,14 @@
 # Compiled files and build directories from LaTeX projects
 *\build
 *.latexmkrc
-*main.synctex.gz
+*.synctex.gz
+
+# Deep Learning Tex recipe
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
 
 # Test or Copy files
 *_copy.*
