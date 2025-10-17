@@ -31,11 +31,11 @@ for m=1:ax
 end
 
 % Rotacion 90 grados
-R3 = zeros(size(A));
-for m=1:ax
-    for n=1:ay
-        for p=1:az
-            R3(m,n,p) = A(ax-n+1,m,p);
+R3 = zeros(ay, ax, az);
+for m = 1:ay
+    for n = 1:ax
+        for p = 1:az
+            R3(m, n, p) = A(ax - n + 1, m, p);
         end
     end
 end
@@ -51,14 +51,15 @@ for m=1:ax
 end
 
 % Rotacion 270 grados
-R5 = zeros(size(A));
-for m=1:ax
-    for n=1:ay
-        for p=1:az
-            R5(m,n,p) = A(n,ax-m+1,p);
+R5 = zeros(ay, ax, az);
+for m= 1:ay
+    for n = 1:ax
+        for p = 1:az
+            R5(m, n, p) = A(n, ay - m + 1, p);
         end
     end
 end
+
 
 figure,
 subplot(231); imshow(A); title('Imagen Original A')
