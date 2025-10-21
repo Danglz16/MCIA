@@ -1,21 +1,25 @@
 \section{Conclusión}
 % Que puedo decir con base en lo que obtuve
 
-En conclusión, la implementación de algoritmos genéticos para resolver el Problema del Vendedor Viajero (TSP) ha demostrado ser una estrategia 
-efectiva para encontrar soluciones cercanas a la óptima en un espacio de búsqueda complejo. La elección de métodos de cruza como PMX y PBX, 
-junto con técnicas de mutación como scramble y block transpose, ha permitido mantener la diversidad genética en la población y explorar una 
-amplia gama de soluciones posibles.
+En conclusión, la implementación de algoritmos genéticos para encontrar el mínimo de la 
+función de Rosenbrock ha demostrado ser efectiva. Durante el desarrollo, se ha demostro
+una convergencia hacia el mínimo global, lo que indica que los operadores de selección, cruza
+y mutación están funcionando adecuadamente. Además, se ha observado que la diversidad
+genética en la población juega un papel crucial en la exploración del espacio de búsqueda.
+Los resultados obtenidos nos indican que, con un ajuste adecuado de los parámetros del algoritmo,
+es posible mejorar aún más la eficiencia y precisión en la búsqueda del mínimo. Esto abre la
+puerta a futuras investigaciones que busquen optimizar estos parámetros y explorar nuevas
+variantes del algoritmo genético para abordar problemas similares.
 
-El análisis de los resultados indica que el tamaño de la población inicial y el número de generaciones juegan un papel crucial en la calidad
-de las soluciones obtenidas. Una población más grande tiende a ofrecer una mayor variedad de rutas sin embargo podemos ver que no es un criterio
-suficiente para garantizar mejores resultados, ya que la aptitud se estabiliza después de un cierto número de generaciones, sugiriendo que
-la convergencia puede ocurrir rápidamente en algunos casos. Esto resalta la importancia de considerar criterios de paro más dinámicos que un número fijo de generaciones,
-como la mejora en la aptitud o la diversidad de la población.
+Tambien cabe la pena mencionar que la función de Rosenbrock, es sencilla de implementar y
+visualizar, lo que la convierte en un excelente caso de estudio para entender el comportamiento
+en este caso podriamos haber explorado funciones mas complejas para ver como se comporta el algoritmo
+en esos casos, pero para los fines de este reporte, la función de Rosenbrock ha sido suficiente.
 
-Este problema tiene múltiples aplicaciones de manera directa y práctica en la vida real, lo que aporta un valor adicional a la correcta
-implementación y análisis de estos algoritmos. En futuras investigaciones, sería interesante explorar la combinación de estos métodos con otras
-técnicas de optimización para comparar resultados.
+Por otro lado la mutación ha demostrado ser un operador crucial para mantener la diversidad en la población,
+evitando la convergencia prematura a óptimos locales. Sin embargo, es importante considerar que 
+evitar la mutacion en este caso en especifico podria haber llevado a una convergencia más lenta
+pero mas sencilla, lo cual puede ser un punto a considerar en futuros experimentos.
 
-Una de las aplicaciones fuera de las más comunes seria justamente la aplicacion inversa de los resultados, es decir dado un conjunto de
-puntos y rutas determinar la ubicacion más lejana, esto podria usarse en temas de seguridad, por ejemplo para determinar la mejor ubicacion
-de una base militar o de policia, o bien para estudios de mercado y ubicacion de tiendas o centros comerciales, entre otras aplicaciones.
+Es decir, es importante seguir explorando y ajustando los algoritmos genéticos para usar los parametros
+correctos es decir cuando sean necesarios y cuando no, para maximizar su eficiencia en la búsqueda de soluciones óptimas.
