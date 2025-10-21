@@ -6,6 +6,7 @@
 \usepackage{amsmath}
 \usepackage{tikz}
 \usepackage{fix-cm} % Allow scalable Computer Modern fonts to avoid font substitution warnings
+\usepackage{listings}
 
 % Options
 %  [anonymous]  Provides output without author names, affiliations or acknowledgments to facilitate double-anonymous peer-review
@@ -41,102 +42,116 @@ los filtros más alla de solo usar una función la cual nos permite resaltar bor
 
 
 \section{Introducción}
+El reconocimiento de patrones y el procesamiento de imágenes frecuentemente requieren operaciones de filtrado para resaltar características relevantes. La convolución con kernels pequeños (por ejemplo 3×3) es una operación fundamental para detectar bordes, suavizar ruido o realzar detalles. En este reporte se describen los kernels utilizados, la implementación en Python con OpenCV y la implementación manual, y se muestran resultados sobre imágenes de ejemplo.
 
-El reconocimiento de patrones escritos a mano es uno de los problemas más comunes en el campo del aprendizaje automático, ya que representa 
-un reto tanto por la variabilidad de la escritura humana es decir la caligrafia unica asi como por la necesidad de modelos eficientes. 
-Uno de los conjuntos de datos más utilizados para abordar este problema es MNIST (Modified National Institute of Standards and Technology), 
-el cual contiene 70,000 imágenes en escala de grises de dígitos manuscritos del 0 al 9, divididas en 60,000 para entrenamiento y 10,000 para 
-prueba. 
-\begin{figure}[H]
-\centering
-        \includegraphics[width=0.7\textwidth]{../../img/mnist.png}
-\caption{Ejemplos de numeros de la Mnist}\label{mnist}   
-\end{figure}
+\section{Materiales y métodos}
+\subsection{Kernels empleados}
+A continuación se listan los kernels usados en la libreta de Python. Se definen como matrices 3×3:
 
-Cada imagen tiene un tamaño de 28$\times$28 píxeles y constituye un estándar para la evaluación de algoritmos de clasificación de imágenes.
+\begin{lstlisting}[language=Python, caption={Kernels usados (ejemplo)}]
+K1 = [[0,0,0],
+      [0,1,0],
+      [0,0,0]]
 
-Entre los modelos más sencillos para abordar esta tarea se encuentra el perceptrón multicapa (MLP), una red neuronal artificial en la cual 
-cada neurona de una capa se conecta con todas las de la siguiente. En este caso se implementó un perceptrón con una capa oculta y una capa 
-de salida, entrenado sobre el dataset MNIST, para la tarea de clasificación de numeros. A pesar de ser una arquitectura simple, el 
-perceptrón es capaz de aprender representaciones útiles que permiten un buen desempeño con este problema.
+K2 = [[ 1, 0,-1],
+      [ 0, 1, 0],
+      [-1, 0, 1]]
 
-Para probar nuestro modelo, se diseñó además una interfaz gráfica en Python utilizando la librería \texttt{Tkinter}. 
-Esta interfaz permite al usuario dibujar un numero en una ventana y recibir la predicción del modelo, integrando así el entrenamiento 
-de la red neuronal con una aplicación interactiva. De igual manera, se exploraron técnicas de preprocesamiento de la imagen, como el escalado, 
-centrado y normalización, con el objetivo de mejorar la correspondencia entre los dígitos dibujados por el usuario y aquellos 
-contenidos en el dataset de entrenamiento.
+K3 = [[ 0,-1, 0],
+      [-1, 4,-1],
+      [ 0,-1, 0]]
 
+K4 = [[-1,-1,-1],
+      [-1, 8,-1],
+      [-1,-1,-1]]
+
+K5 = [[ 0,-1, 0],
+      [-1, 5,-1],
+      [ 0,-1, 0]]
+
+K6 = (1/16)*[[1,2,1],
+             [2,4,2],
+             [1,2,1]]
+\end{lstlisting}
+
+K3 y K4 son kernels Laplacianos para detección de bordes; K5 es un realce (sharpen) y K6 un suavizado tipo gaussiano.
 
 \section{Desarrollo}
-\subsection{Modelo}
-Se implementó una red perceptron con entrada de 784 ya que al tener imagenes de 28$\times$28 sera nuestra entrada de datos `Aplanados', ademas
-de esto se eligio como capa oculta 128 neuronas como numero promedio entre aprendizaje y tiempo de entrenamiento asi como una función de
-activacion ReLU para que aprenda patrones no lineales. Por ultimo una salida de 10, que seran nuestros numeros del 0 al 9 con función de activacion
-softmax para tener la probabilidad segun el modelo.
-Se usó el optimizador Adam, muy eficiente y ampliamente utilizado en problemas de clasificación.
-La función de pérdida \textit{Sparse Categorical Crossentropy} es la adecuada cuando las etiquetas (\texttt{y\_train}) son enteros (0--9) y no vectores one-hot. 
-Por último, se eligieron 5 épocas para que un perceptrón aprenda MNIST sin sobreajustar demasiado. 
-El \textit{batch size} de 128 representa un tamaño estándar que balancea memoria y velocidad, 
-mientras que el parámetro \texttt{validation\_split} con valor de 0.1 indica que el 10\% de los datos de entrenamiento se reservan para validación, 
-monitoreando el rendimiento en datos no vistos durante cada época.
+\subsection{Implementación con OpenCV}
+OpenCV ofrece la función \texttt{cv2.filter2D (src, ddepth, kernel)} que realiza la convolución de forma sencilla. 
+Es importante mencionar que la libreria de OpenCV separa los canales BGR (Blue, Green, Red) diferente al tipico RGB (Red, Green, Blue), 
+se aplica \texttt{filter2D} por canal y luego se normaliza el resultado para visualizarlo.
 
+Código:
 \begin{figure}[H]
-\centering
-        \includegraphics[width=0.7\textwidth]{rsc/modelo.png}
-\caption{Parametros del Modelo Usado}\label{modelo}   
+        \centering
+        \includegraphics[width=0.8\textwidth]{rsc/opencv.png}
+        \caption{Uso de OpenCV para aplicar filtros}
 \end{figure}
 
-Guardamos el modelo para no tener que entrenarlo cada vez que se corra el codigo y pasamos a la parte de diseñar nuestra interfaz.
+\subsection{Implementación manual}
+La convolución manual consiste en:
+\begin{enumerate}
+  \item Calcular padding apropiado (reflect o zero).
+  \item Para cada píxel (y,x) y cada canal: extraer la vecindad del tamaño del kernel.
+  \item Realizar la suma elemento a elemento entre la vecindad y el kernel.
+  \item Guardar el valor en la salida; aplicar post-procesado (valor absoluto y normalización para visualizar).
+\end{enumerate}
 
-\subsection{Interfaz}
-
-Para el desarrollo de la interfaz gráfica en Python se uso la librería \texttt{Tkinter}. Esta interfaz tiene como objetivo permitir 
-la interacción directa del usuario con el sistema de reconocimiento de numeros.
-
-La aplicación presenta un lienzo digital de fondo negro sobre el cual el usuario puede dibujar un dígito mediante el cursor, 
-utilizando un trazo blanco de grosor ajustable. Paralelamente, se emplea la librería \texttt{PIL} para almacenar el dibujo en una 
-imagen procesable, lo que permite su posterior transformación al formato compatible con el modelo.
-
+Código:
 \begin{figure}[H]
-\centering
-        \includegraphics[width=0.5\textwidth]{rsc/Interfaz.png}
-\caption{Interfaz Diseñada}\label{interfaz}   
+        \centering
+        \includegraphics[width=0.8\textwidth]{rsc/manual.png}
+        \caption{Implementación manual de convolución}
 \end{figure}
 
-El preprocesamiento implementado consiste en escalar y centrar el dígito dentro de una imagen de 28$\times$28 píxeles, 
-normalizar sus valores de intensidad y adaptarlo a la entrada esperada por el perceptrón. Una vez realizado este proceso, 
-al presionar el botón \textit{Predecir}, la imagen es pasada al modelo previamente entrenado, mostrando en pantalla el resultado 
-de la clasificación junto con la probabilidad asociada.
+\section{Resultados}
+\subsection{OpenCV}
 
 \begin{figure}[H]
-\centering
-        \includegraphics[width=0.5\textwidth]{rsc/Prediccion.png}
-\caption{Predicción del Numero 7}\label{predicc}   
+        \centering
+        \includegraphics[width=1\textwidth]{rsc/kernel_cv.png}
+        \caption{Resultados con OpenCV}
 \end{figure}
 
-La interfaz incluye también un botón \textit{Borrar}, que reinicia el lienzo para permitir múltiples intentos. De esta forma, 
-se integran el entrenamiento del modelo y su uso práctico en tiempo real, proporcionando una herramienta sencilla e interactiva 
-para la demostración del reconocimiento automático de dígitos escritos a mano.
-
-Durante el desarrollo se enfrentaron problemas con este preprocesamiento ya que aunque nuestro modelo se entreno correctamente y nos 
-mostraba buenos valores de accuracy la prediccion no era la mejor, debido a esto se implemento otro boton \textit{Ver28$\times$28} 
-que nos permite ver la entrada que le llega a nuestro modelo, de esta manera nos aseguramos de ver lo mismo que el modelo en caso
-de querer hacer un chequeo manual.
-
+\subsection{Implementación manual}
 \begin{figure}[H]
-\centering
-        \includegraphics[width=0.5\textwidth]{rsc/entrada.png}
-\caption{Entrada del modelo del numero 7 visto en la Figura~\ref{predicc}}\label{entrada}   
+        \centering
+        \includegraphics[width=0.7\textwidth]{rsc/k1.png}
+        \caption{Resultados con implementación manual (K1)}
+\end{figure}
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\textwidth]{rsc/k2.png}
+        \caption{Resultados con implementación manual (K2)}
+\end{figure}
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\textwidth]{rsc/k3.png}
+        \caption{Resultados con implementación manual (K3)}
+\end{figure}
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\textwidth]{rsc/k4.png}
+        \caption{Resultados con implementación manual (K4)}
+\end{figure}
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\textwidth]{rsc/k5.png}
+        \caption{Resultados con implementación manual (K5)}
+\end{figure}
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\textwidth]{rsc/k6.png}
+        \caption{Resultados con implementación manual (K6)}
 \end{figure}
 
 \section{Conclusión}
-
-El desarrollo de este proyecto permitió comprobar que un perceptrón multicapa, aun con una arquitectura sencilla, demuestra un desempeño 
-notable para la de clasificación de dígitos manuscritos utilizando el conjunto de datos MNIST.\@
-La integración con una interfaz gráfica demostró la utilidad práctica del modelo, ya que brindó la posibilidad de interactuar con el 
-sistema asi como comprobar en tiempo real sus predicciones. Durante el proceso se demostro la importancia del preprocesamiento 
-de las imágenes para lograr una correspondencia adecuada entre los datos de entrenamiento y los dígitos dibujados por el usuario, 
-lo cual refleja un aspecto clave para mejorar la robustez del sistema.
+Se implementaron filtros basados en kernels mediante convolución tanto con OpenCV como de forma manual. Los resultados obtenidos fueron 
+consistentes entre ambos métodos, validando la correcta aplicación de la operación de convolución. La manipulación de los valores del 
+kernel permitió observar efectos variados en la imagen, como detección de bordes, realce y suavizado. 
+Con esta prueba podemos observar además del comportamiento de la librería OpenCV (Implementación rápida y sencilla), la importancia 
+de los parámetros en la convolución y cómo afectan el resultado final, asi como la vista paso a paso de la operacion al implementarla manualmente.
 
 
 
