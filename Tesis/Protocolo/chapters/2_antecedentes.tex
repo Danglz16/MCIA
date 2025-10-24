@@ -1,0 +1,91 @@
+% 4 Pags (Maximo 5)
+% Investigacion de Fuentes Legitimas
+% Se escribe en Forma de reseña historica
+ %Contextualización.
+ %Identificación de brechas en el conocimiento.
+ %Fundamentación teórica mínima necesaria para comprender el tema.
+ %Apoyo metodológico.
+ %Citar fuentes
+
+
+La electroencefalografía (EEG por sus siglas en ingles) y la magnetoencefalografía (MEG por sus siglas en ingles) son técnicas no invasivas que registran la actividad eléctrica y magnética del cerebro desde el cuero cabelludo o fuera de la cabeza\cite{Asadzadeh2020}. A diferencia de otras modalidades de neuroimagen con alta resolución espacial (como la Imagen por Resonancia Magnética Funcional), el EEG y la MEG destacan por su extraordinaria resolución temporal a escala de milisegundos. Sin embargo, determinar la ubicación tridimensional de las fuentes neuronales que generan estas señales registradas en la superficie es un desafío inherentemente difícil, conocido como el problema inverso\cite{Hamalainen1994}. Este problema es fundamentalmente mal condicionado y no tiene una solución única sin incorporar suposiciones o restricciones adicionales. La búsqueda de métodos precisos para resolver este problema ha sido un área activa de investigación durante décadas, crucial para comprender la organización funcional del cerebro y diagnosticar trastornos neurológicos como la epilepsia.
+
+\subsection{Primeros Enfoques: Modelos de Dipolo Discreto}
+
+Una de las primeras y más comunes estrategias para abordar el problema inverso fue asumir que las señales EEG/MEG son generadas por un número relativamente pequeño de fuentes focales, modeladas como dipolos de corriente. Este enfoque paramétrico busca estimar la ubicación, orientación y magnitud de estos dipolos discretos. Trabajos tempranos, propusieron el uso del principio clasificación múltiple de señales (MUSIC por sus siglas en ingles)\cite{Mosher1992} para identificar las ubicaciones de múltiples dipolos a partir de datos MEG espacio-temporales. Demostraron que el análisis de componentes principales (PCA por sus siglas en ingles) podía ajustarse a un modelo de dipolo simple y utilizaron algoritmos de optimización como el método Simplex para la localización. Posteriormente, refinaron esta idea con Recursive MUSIC\cite{Mosher1998RecursiveMUSIC}, un marco iterativo que construye modelos topográficos de orden superior para localizar fuentes con mayor precisión. Si bien los modelos de dipolo discreto pueden ser apropiados cuando las fuentes son realmente localizadas, pueden llevar a resultados engañosos si las suposiciones no se cumplen o si el número de fuentes es desconocido.
+
+\subsection{El Surgimiento de las Soluciones Distribuidas}
+
+Una alternativa a los modelos de dipolo discreto es estimar la actividad neuronal no solo en puntos focales, sino distribuida en todo el volumen cerebral o en la superficie cortical\cite{Michel2019}. Este enfoque, conocido como soluciones inversas distribuidas (DIS por sus siglas en ingles), busca calcular una distribución de densidad de corriente tridimensional. Para superar la no unicidad del problema inverso en este contexto, se introducen restricciones basadas en información a priori.
+
+Un desarrollo significativo fue la introducción de las Estimaciones de Norma Mínima (MNE por sus siglas en ingles)\cite{Hamalainen1994}. Las MNE buscan la distribución de corriente que tiene la norma mínima (una medida de ``tamaño'' o ``energía'') entre todas las distribuciones posibles que explican los datos medidos. Aunque las MNE son soluciones lineales que no requieren suposiciones sobre dipolos discretos y resultan en distribuciones de corriente continuas, tienden a ``difuminar'' o extender las fuentes puntuales reales\cite{ValdesSosa2000}.
+
+\subsection{Regularización y LORETA}
+
+Para obtener soluciones únicas y fisiológicamente plausibles en los métodos distribuidos, se aplica la regularización, que incorpora conocimiento a priori sobre las propiedades de la solución deseada\cite{Michel2019}. Un avance crucial fue la Tomografía Electromagnética de Baja Resolución (LORETA por sus siglas en inglés)\cite{PascualMarqui1994}. LORETA calcula directamente una distribución de corriente en todo el volumen cerebral aplicando una restricción de suavidad espacial, basada en la suposición fisiológica de que las neuronas vecinas tienden a activarse sincrónicamente.
+
+Posteriormente, en 2002 se desarrollo la Tomografía Electromagnética Cerebral de Baja Resolución Estandarizada (sLORETA por sus siglas en inglés)\cite{PascualMarqui2002}, una versión estandarizada de LORETA que aborda algunas de sus limitaciones y se ha vuelto muy popular por su simplicidad y precisión aceptable\cite{Pantazis2021}. A pesar de su éxito, sLORETA puede producir imágenes ruidosas o borrosas, lo que ha llevado a desarrollos como EHR-sLORETA para mejorar la resolución mediante umbralización automática.
+
+Otros métodos como el Promedio Autorregresivo Local (LAURA por sus siglas en inglés) \cite{GraveDePeralta2004}, y la Tomografía Eléctrica y Magnética de Resolución Variable (VARETA por sus siglas en inglés)\cite{ValdesSosa2000}, también han ofrecido aproximaciones distribuidas usando restricciones biofísicas o regularización espacialmente variable.
+
+\begin{table}[H]
+\centering
+\caption{Comparación de modelos distribuidos para localización de fuentes}
+\begin{tabular}{|p{3cm}|p{3cm}|p{3.5cm}|p{3cm}|p{2.5cm}|}
+\hline
+\textbf{Modelo} & \textbf{Principio Teórico} & \textbf{Salida Generada} & \textbf{Ventajas / Limitaciones} & \textbf{Precisión} \\
+\hline
+MNE & Minimización de la norma de la corriente estimada & Mapa continuo de corriente sobre una malla cerebral & Rápido y simple; subestima fuentes profundas & $\sim$10--20 mm \cite{Grech2008} \\
+\hline
+LORETA & Regularización suave espacial & Imagen 3D con resolución baja-media & Mejora estabilidad y reduce ruido; resolución limitada & $\sim$7--15 mm \cite{Grech2008} \\
+\hline
+sLORETA & Densidad de corriente estandarizada (z-score) & Imagen precisa con menor error de localización & Alta precisión en profundidad; dependiente de normalización & $\sim$5--10 mm \cite{PascualMarqui2002} \\
+\hline
+VARETA & Enfoque bayesiano multiresolución & Tomografía cerebral con resolución adaptativa & Alta resolución espacial; complejidad computacional elevada & $\sim$5--10 mm \cite{BoschBayard2001} \\
+\hline
+LAURA & Regularización local autoregresiva & Distribución localizada con restricciones espaciales & Optimiza precisión local; sensible a configuración de parámetros & $\sim$5--10 mm \cite{GraveDePeralta2004} \\
+\hline
+Aprendizaje Profundo (CNN) & Redes profundas aprenden relaciones no lineales EEG-fuente & Mapa de actividad de fuentes & Alta precisión, depende de datos de entrenamiento & $\sim$5--10 mm \cite{Hecker2021CNN} \\
+\hline
+Hybrid DL + MNE/LORETA & Combina modelo físico con red neuronal & Mapa ajustado de localización de fuentes & Mayor robustez, requiere calibración & $\sim$4--7 mm \cite{Zhang2021HybridEEG} \\
+\hline
+\end{tabular}
+\end{table}
+
+
+
+\subsection{Filtros Espaciales (Beamformers)}
+
+Otra familia importante de técnicas de localización de fuentes son los filtros espaciales o beamformers\cite{Zhang2023EEGReview}. Métodos como la Varianza Mínima con Restricciones Lineales (LCMV por sus siglas en inglés)\cite{Sun2022DeepNN}, construyen filtros espaciales que estiman la actividad de una fuente específica mientras suprimen la actividad de otras. Los beamformers representan una alternativa a los métodos de norma mínima\cite{Hincapie2016} y han demostrado ser útiles en la detección de fuentes interactuantes. Su rendimiento puede depender del preprocesamiento y la elección de parámetros\cite{Asadzadeh2020}.
+
+\subsection{Integración Multimodal y Restricciones Anatómicas/Funcionales}
+
+La precisión en la localización puede mejorarse integrando información de otras modalidades como la resonancia magnética (MRI por sus siglas en ingles), que permite construir modelos de cabeza realistas y restringir el espacio de fuentes\cite{Dale2000}. La integración de fMRI o Tomografía por Emisión de Positrones (PET por sus siglas en ingles) puede guiar las soluciones inversas. Por ejemplo, el desarrollo del Mapeo Paramétrico Estadístico Dinámico (dSPM por sus siglas en inglés), combinando fMRI y MEG (fMEG) para obtener estimaciones espacio-temporales de alta resolución. También se ha explorado la combinación EEG-fNIRS como alternativa multimodal\cite{Li2022}.
+
+\subsection{Avances en Preprocesamiento}
+
+La calidad del preprocesamiento de señales EEG/MEG es crítica. Esto incluye filtrado temporal, eliminación de artefactos oculares, musculares y cardíacos\cite{Uriguen2015}. Técnicas como el análisis de componentes independientes (ICA por sus siglas en ingles) se han convertido en estándar, destacando algoritmos como SOBI\cite{belouchrani1997sobi}, InfoMax\cite{bell1995infomax} y AMICA\cite{palmer2008amica}. Además, la precisión del modelo de cabeza (esférico vs. realista), el número de capas y la densidad de electrodos también influyen en los resultados\cite{Michel2019}.
+
+\subsection{Desarrollos Recientes: Aprendizaje Automático}
+
+Recientemente, se han comenzado a aplicar técnicas de aprendizaje automático y aprendizaje profundo en la localización de fuentes\cite{Sun2022DeepNN}, buscando superar limitaciones de los métodos clásicos. Ejemplos incluyen DeepSIF\cite{Sun2022DeepNN} y PDeepSIF\cite{sun2023pdeepsif}, que emplean redes neuronales profundas, a veces combinadas con modelos de masa neuronal. Estudios han mostrado que estas técnicas pueden superar a sLORETA y beamformers en precisión espacial, especialmente en aplicaciones clínicas como la localización del foco epiléptico. Otros enfoques, como SMVMD, basados en la descomposición de señales, también están siendo explorados\cite{Sun2023DeepMEG}.
+
+ Tradicionalmente, los enfoques de análisis EEG incluían métodos estadísticos convencionales, extracción manual de características y clasificadores clásicos como $k$-NN, SVM y redes neuronales artificiales (ANN por sus siglas en ingles), con aplicaciones destacadas en detección de epilepsia, Alzheimer y monitoreo del estrés mental \cite{Kurniawan2021}.
+
+En los últimos años, el auge del aprendizaje profundo ha transformado el análisis de señales EEG. Particularmente, las redes neuronales convolucionales (CNN por sus siglas en ingles)\cite{Hecker2021CNN} han demostrado un rendimiento superior en tareas de clasificación automática, debido a su capacidad para extraer representaciones discriminativas de señales complejas sin necesidad de ingeniería manual de características \cite{Samal2024}. Estas redes han sido implementadas exitosamente en sistemas Interfaz Cerebro-Computadora (BCI por sus siglas en ingles), detección de emociones, concentración, epilepsia y otros trastornos neurológicos \cite{Kurniawan2021}.
+
+A la par, la investigación en conectividad cerebral ha evolucionado significativamente. Los enfoques modernos de conectividad funcional y efectiva en EEG han integrado modelos paramétricos y no paramétricos, tanto en el dominio temporal como en el espectral, aplicando técnicas como coherencia, Granger causality, y medidas basadas en teoría de la información. Estas estrategias permiten mapear las interacciones dinámicas entre regiones cerebrales \cite{Chiarion2023}.
+
+Un avance clave ha sido la adopción de la perspectiva de la neurociencia de redes, modelando al cerebro como un grafo dinámico. Bajo este marco, las redes neuronales de grafos (GNN por sus siglas en ingles) han surgido como herramientas prometedoras para representar relaciones topológicas entre electrodos EEG, capturando tanto conexiones funcionales como estructurales. Estas arquitecturas han demostrado eficacia en clasificación de emociones, imaginario motor y diagnóstico de enfermedades neurológicas \cite{Klepl2024}.
+
+Actualmente, la combinación de CNN, LSTM y GNN permite abordar tareas de clasificación multiclase y multimodal, extrayendo simultáneamente características espaciales\cite{Cui2019}, temporales y topológicas de las señales EEG. Estas tecnologías representan el estado del arte en sistemas inteligentes aplicados a neurociencia computacional, y continúan expandiendo su impacto en entornos clínicos, cognitivos y de interacción humano-computadora.
+
+Para esta última parte es importante mencionar cómo se mide el rendimiento en estos modelos dado que al ser modelos de aprendizaje automático podemos tener métricas cuantitativas que muestren su capacidad de clasificar o localizar con precisión la actividad cerebral, principalmente nos enfocaremos en:
+
+\begin{itemize}
+    \item Precisión (Accuracy): proporción de predicciones correctas sobre el total de muestras.
+    \item Sensibilidad (Recall) y Especificidad: útil en contextos clínicos donde es crucial detectar correctamente eventos positivos (por ejemplo, crisis epilépticas) sin aumentar los falsos positivos.
+    \item Área bajo la curva ROC (AUC-ROC): mide la capacidad del modelo para discriminar entre clases.
+    \item Error cuadrático medio (MSE) y localización espacial: en tareas de localización de fuentes (como DeepSIF o PDeepSIF), mide la distancia euclidiana entre la fuente predicha y la real.
+    \item F1-score: balance entre precisión y sensibilidad, útil en problemas multiclase o con clases desbalanceadas.
+\end{itemize}
