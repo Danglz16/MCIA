@@ -1,0 +1,17 @@
+\section{Resultados}
+% Se muestran e interpretan los resultados como se obtuvieron
+
+Como podemos observar en la figura~\ref{fig: p100_60} nuestro algoritmo logra encontrar el minimo global 
+de la función de Rosenbrock en un número relativamente bajo de generaciones (alrededor de 60 generaciones), 
+lo cual es un buen resultado considerando la complejidad de la función y el tamaño de la población (100 individuos).
+Además, la convergencia rápida indica que los operadores de selección, cruza y mutación están funcionando de manera 
+efectiva para guiar a la población hacia el óptimo global.
+
+Las gráficas nos permiten ver como la población se va acercando al mínimo global (1,1) a medida que avanzan 
+las generaciones ademas de contar con el zoom que nos permite observar con mayor detalle el comportamiento
+cerca del mínimo el cual es más notorio en las ultmimas generaciones.
+
+Por otro lado en la figura~\ref{fig: p100_max_10} podemos observar que el algoritmo también es capaz de encontrar
+el máximo global de la función de Rosenbrock, aunque en este caso la convergencia es un poco más rápida, 
+alcanzando el máximo en un par de generaciones (alrededor de 10 generaciones). Podemos atribuir esto a el 
+acotamiento de nuestra función en el dominio definido, lo que facilita la búsqueda del máximo.

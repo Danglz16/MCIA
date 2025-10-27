@@ -1,0 +1,20 @@
+\section{Discusión}
+% Interpretacion propia de los datos
+
+Al generar nuestra población inicial podemos observar que los individuos están regados
+por todo el espacio de búsqueda, lo cual es beneficioso para la exploración inicial
+del algoritmo genético. De la misma manera podemos ver el mejor individuo en la
+generación 0, el cual podemos seguir para ver su evolución a lo largo de las 
+generaciones. A lo largo de las generaciones podemos observar como los individuos 
+se van acercando al mínimo de la función de Rosenbrock, lo cual es un indicativo
+de que el algoritmo está funcionando correctamente. Finalmente en la figura~\ref{fig: p100_60} 
+podemos ver como los individuos están muy cerca del mínimo, como se ve en el zoom de la figura.
+
+En cuanto al maximo valor de la función, podemos observar que debido a que la función esta acotada
+por arriba, el valor máximo no cambia mucho a lo largo de las generaciones. Y rapidamente 
+llega a un valor cercano al máximo teórico de la función en el espacio de búsqueda definido. 
+Incluso con una población inicial muy variada el máximo valor converge rápidamente.
+
+En ambos casos, tanto para el mínimo como para el máximo, podemos observar que a medida que
+aumentamos el número de generaciones, los individuos se acercan más al valor mínimo y máximo
+respectivamente, lo cual es el factor determinante de la correcta implementación del algoritmo genético.

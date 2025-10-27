@@ -2,6 +2,9 @@
 *\build
 *.latexmkrc
 *.synctex.gz
+*.bbl
+*.bcf
+
 
 # Deep Learning Tex recipe
 *.aux
