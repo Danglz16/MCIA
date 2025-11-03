@@ -13,8 +13,8 @@ while(True):
     # Display the resulting frame
     cv2.imshow('Color',frame)
     cv2.imshow('Grayscale',gray)
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        cv2.imwrite('./img/captured_image.png', frame)
+    if cv2.waitKey(1) & 0xFF == ord('q'): # Press 'q' to capture and quit
+        cv2.imwrite('./Semestre_2/Vision_Computadora/img/captured_image.png', frame)
         break
 
 # When everything done, release the capture
