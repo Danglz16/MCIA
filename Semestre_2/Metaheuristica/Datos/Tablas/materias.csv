@@ -1,0 +1,13 @@
+mat_id,lecture_id,carrera_id,group_id,expected_size,features
+
+
+MAT101,1,T01,ING,1,45,projector|whiteboard
+MAT101,2,T01,ING,1,45,projector|whiteboard
+PHY201,1,T02,ING,1,35,lab
+HIS110,1,T03,ING,2,40,whiteboard
+
+course_id,lecture_id,teacher_id,curriculum_id,group_id,expected_size,features
+MAT101,1,T01,ING,1,45,projector|whiteboard
+MAT101,2,T01,ING,1,45,projector|whiteboard
+PHY201,1,T02,ING,1,35,lab
+HIS110,1,T03,ING,2,40,whiteboard
