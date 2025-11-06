@@ -5,7 +5,6 @@
 *.bbl
 *.bcf
 
-
 # Deep Learning Tex recipe
 *.aux
 *.fdb_latexmk
@@ -16,3 +15,6 @@
 # Test or Copy files
 *_copy.*
 *_test.*
+
+# Variables de entorno
+.env
