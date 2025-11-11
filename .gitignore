@@ -4,6 +4,8 @@
 *.synctex.gz
 *.bbl
 *.bcf
+*.toc
+*.xml
 
 # Deep Learning Tex recipe
 *.aux

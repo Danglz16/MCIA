@@ -1,0 +1,20 @@
+\section{Resultados}
+% Se muestran e interpretan los resultados como se obtuvieron
+Podemos observar que con las restricciones de conjuntos $(i,j)$ las rutas se hacen mas complejas de determinar, esto se debe a que ya no
+es tan facil tener combinaciones validas como aptas, y a su vez esto puede verse en resultados como en la figura~\ref{1000_pmx} donde existe
+un ``cruce'' en la ruta sin embargo esto aunque pareciera extraño el resultado general es bastante bueno al encontrarse entre los mejores 
+obtenidos. Podemos observar nuestros resultados ordenados de la siguiente manera del mejor al peor:
+
+\begin{enumerate}
+    \item $4,415.91$Km PBX 1000 --~\ref{1000_pbx}
+    \item $4,607.21$Km PBX 500 --~\ref{500_pbx}
+    \item $4,610.89$Km PMX 1000 --~\ref{1000_pmx}
+    \item $4,677.34$Km PMX 100 --~\ref{100_pmx}
+    \item $4,905.76$Km PMX 500 --~\ref{500_pmx}
+    \item $4,927.89$Km PBX 100 --~\ref{100_pbx}
+\end{enumerate}
+
+Como podemos ver la mejor ruta se encontro con el metodo PBX y poblacion de 1000 esta combinacion se ve favorecida debido al espacion de busqueda inicial 
+ya que tenemos una poblacion muy amplia. Por otro lado la segunda mejor ruta la encontramos con el mismo metodo y una poblacion más pequeña esto demuestra
+el buen desempeño de este metodo ya que en ambos casos tambien observamos la rapida convergencia del algoritmo en ambos casos siendo alrededor de las 150
+generaciones.
