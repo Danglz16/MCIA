@@ -26,7 +26,7 @@ materia_id,code,name,hours_per_week,room_type_required
 25,F2,Fisica_2,4,normal
 26,P1,Programacion_1,5,normal
 27,II,Intro_a_la_Ingenieria,3,normal
-28,OH,Optativa_de_Humanidades_1,3,_normal
+28,OH,Optativa_de_Humanidades_1,3,normal
 29,T1,Taller_1,1,normal
 30,CM,Calculo_Multivariable,4,normal
 31,ED,Ecuaciones_Diferenciales,4,normal
@@ -82,8 +82,8 @@ materia_id,code,name,hours_per_week,room_type_required
 81,LQO,Laboratorio_Quimica_Organica,1,laboratorio
 82,E,Estatica,4,normal
 83,EOE,Expresion_Oral_y_Escrita,3,normal
-84,FBM,Fisíca II: Óptica y fisíca cuántica,2,normal
-85,LFBM,Laboratorio_Fisíca II: Óptica y fisíca cuántica,2,laboratorio
+84,FBM,Fisíca_II_Óptica_y_fisíca_cuántica,2,normal
+85,LFBM,Laboratorio_Fisíca_II_Óptica_y_fisíca_cuántica,2,laboratorio
 86,FQ,Fisicoquimica,3,normal
 87,BM,Biomagnetismo,4,normal
 88,A,Anatomia,5,normal
@@ -92,7 +92,7 @@ materia_id,code,name,hours_per_week,room_type_required
 91,BQ,Bioquimica,4,normal
 92,TM,Tecnologia_de_Materiales,4,normal
 93,FI1,Fisiologia,4,normal
-94,MSSB,Modelado y Simulación de Sistemas Biológicos,4,normal
+94,MSSB,Modelado_y_Simulación_de_Sistemas_Biológicos,4,normal
 95,EA,Electronica_Analogica,4,normal
 96,S,Sustentabilidad,3,normal
 97,IBS,Intro_Biosensores,4,normal
@@ -128,7 +128,7 @@ materia_id,code,name,hours_per_week,room_type_required
 127,LQI,Laboratorio_Quimica_Inorganica,1,normal
 128,QA,Quimica_Analitica,4,normal
 129,QO2,Quimica_Organica_2,3,normal
-130,LQO2,Laboratorio_Quimica_Organica_2,1,laboatorio
+130,LQO2,Laboratorio_Quimica_Organica_2,1,laboratorio
 131,QI2,Quimica_Inorganica_2,3,normal
 132,LQI2,Laboratorio_Quimica_Inorganica_2,1,laboratorio
 133,R,Redaccion,2,normal
@@ -137,7 +137,7 @@ materia_id,code,name,hours_per_week,room_type_required
 136,LBMLC,Laboratorio_Biologia_Molecular,1,laboratorio
 137,I2,Instrumental_2,3,normal
 138,MCE,Microelectronica,3,laboratorio
-139,TSB,Tópicos Selectos de Biofísica,3,normal
+139,TSB,Tópicos_Selectos_de_Biofísica,3,normal
 140,TSI,Topicos_Selectos_de_Ingenieria,4,normal
 141,OU,Operaciones_Unitarias,4,normal
 142,IM1,Ingenieria_de_Materiales_1,3,normal
@@ -152,7 +152,7 @@ materia_id,code,name,hours_per_week,room_type_required
 151,OE2N,Optativa_Especialidad_2_Nano,4,normal
 152,MN,Materiales_Nanoestructurados,3,normal
 153,NBM,Nanobiomateriales,3,normal
-154,FNI,Formulaciones Nanotecnologicas para la Industria,4,normal
+154,FNI,Formulaciones_Nanotecnologicas_para_la_Industria,4,normal
 155,LV,Labview,3,normal
 156,PNS,Principios_Nanosensados,3,normal
 157,MN2,Materiales_Nanoestructurados_2,3,normal
