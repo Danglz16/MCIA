@@ -1,0 +1,110 @@
+\section{Desarrollo}
+% Metodologia / Desarrollo
+Partimos de la obtencion de nuestros datos que nos servian para codificar y generar nuestros individuos por lo cual se hizo una base de datos investigando el plan de estudios
+de cada curso considerado para este trabajo los cuales se mencionaron en la seccion anterior.~\ref{cursos}
+
+La resolución del UCTP mediante Algoritmos Genéticos requiere definir una representación clara del problema, así como los operadores evolutivos y una función de aptitud 
+capaz de satisfacer las restricciones duras y optimizar las restricciones blandas.
+
+\subsection{Representación del Cromosoma}
+
+Cada individuo de la población representa un horario completo. Para ello, se construyó un cromosoma donde cada gen corresponde a un evento académico (materia--grupo) 
+definido en la base de datos. Cada gen se codifica como un par ordenado:
+
+\[
+\text{gen}_i = (\text{room\_index}_i, \text{start\_slot}_i)
+\]
+
+donde:
+\begin{itemize}
+    \item \textbf{room\_index} identifica el salón asignado, indexado en la tabla de salones disponibles.
+    \item \textbf{start\_slot} representa el bloque de tiempo de inicio en la grilla semanal.
+\end{itemize}
+
+Esta representación permite manejar clases de diferente duración, tipos de aula (laboratorio y salón de clases), y múltiples cursos simultáneamente. 
+Además, facilita la verificación de cruces, compatibilidad y duración sin necesidad de estructuras intermedias complejas.
+
+\subsection{Datos y Restricciones Incorporadas}
+
+La base de datos utilizada contiene:
+\begin{itemize}
+    \item Lista de cursos, su duración en bloques y el número de sesiones por semana.
+    \item Relación curso--grupo para evitar combinar grupos distintos en un mismo curso.
+    \item Tipos de salón requeridos (normal, laboratorio).
+    \item Tabla de salones disponibles con su \textit{room\_type} correspondiente.
+    \item Número total de bloques de tiempo por día y por semana.
+\end{itemize}
+
+A partir de estas tablas se construyeron estructuras auxiliares como:
+\begin{itemize}
+    \item \texttt{compatible\_rooms[i]}: lista de salones posibles para el evento $i$.
+    \item \texttt{duration\_slots[i]}: número de bloques que ocupa cada clase.
+\end{itemize}
+
+\subsection{Generación de Individuos}
+
+Para crear la población inicial, cada evento se asigna de la siguiente manera:
+
+\begin{enumerate}
+    \item Selección aleatoria de un salón dentro de \texttt{compatible\_rooms}.
+    \item Selección aleatoria del \texttt{start\_slot}, asegurando que la clase completa quepa en el día.
+    \item Verificación básica para evitar cruces evidentes dentro del mismo individuo.
+\end{enumerate}
+
+Este proceso genera soluciones diversas que cumplen mínimamente con las restricciones duras estructurales.
+
+\subsection{Función de Aptitud}
+
+La función de aptitud se define como la suma de penalizaciones por incumplimiento de restricciones. Esto permite mantener una formulación flexible y ajustable. 
+Las penalizaciones actuales incluyen:
+
+\begin{itemize}
+    \item \textbf{Cruce de dos clases en el mismo salón y mismo bloque} (penalización alta).
+    \item \textbf{Uso de un salón incompatible} con el tipo requerido.
+    \item \textbf{Clases que exceden el día} por mala asignación de \textit{start\_slot}.
+    \item \textbf{Más de dos horas consecutivas}: si un grupo tiene tres o más clases seguidas de la misma materia, se aplica penalización creciente.
+    \item \textbf{Distribución semanal deficiente}: cuando un curso concentra todas sus horas en un mismo día.
+\end{itemize}
+
+La aptitud total se define como:
+
+\[
+\text{fitness}(ind) = \sum_j \text{penalización}_j(ind)
+\]
+
+y el objetivo del algoritmo es minimizarla.
+
+\subsection{Operadores Genéticos}
+
+Se emplean los operadores clásicos adaptados a la estructura del horario:
+
+\begin{itemize}
+    \item \textbf{Selección por torneo}: favorece individuos con menor penalización.
+    \item \textbf{Cruce uniforme por gen}: cada gen del hijo proviene aleatoriamente de uno de los padres, manteniendo la pareja (salón, inicio).
+    \item \textbf{Mutación controlada}: se permite cambiar el salón o el bloque de inicio respetando las compatibilidades.
+\end{itemize}
+
+Estos operadores permiten explorar el espacio de soluciones sin destruir completamente buenas configuraciones parciales.
+
+\subsection{Construcción del Horario Final}
+
+Una vez que el AG converge a una solución con baja penalización, se utiliza una función de decodificación para transformar el cromosoma en un horario estructurado por día. 
+Para cada día, se genera automáticamente:
+\begin{itemize}
+    \item Una matriz con bloques de tiempo en el eje vertical.
+    \item Los salones disponibles en el eje horizontal.
+    \item Las clases asignadas en cada celda con su nombre y grupo.
+\end{itemize}
+
+Finalmente, se exporta a un archivo Excel donde cada hoja representa un día de la semana. Este archivo también incorpora formatos de color para distinguir carreras 
+facilitando el analisis visual de los resultados, los colores asignados fueron:
+\begin{itemize}
+	\item MC. Inteligencia Artificial en azul
+	\item Ing. Nanotecnologia en amarillo
+	\item Ing. Biomedica en verde
+	\item Ing. Física en morado
+	\item Cruces en rojo.
+\end{itemize}
+
+\subsection{Ejecucion del AG}
+Con todo lo anterior menc
