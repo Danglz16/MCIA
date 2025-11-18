@@ -1,0 +1,35 @@
+\section{Resultados}
+% Se muestran e interpretan los resultados como se obtuvieron
+
+En la Figura~\ref{fig: metricas} podemos ver la evolución de la mejor aptitud global y de la aptitud promedio por generación del algoritmo genético. 
+Con esto podemos comentar lo siguiente:
+
+\subsection{Mejora rápida inicial}
+En las primeras generaciones se observa un descenso rapido de la mejor aptitud global, lo que indica que el algoritmo encontró soluciones 
+de buena calidad rápidamente. Esto sugiere una población inicial variada y operadores genéticos (selección y cruce) 
+que favorecen mejoras tempranas.
+
+\subsection{Disminución progresiva en la tasa de mejora}
+Después de aproximadamente 50--60 generaciones, la curva de la mejor aptitud desciende de forma más lenta, de forma escalonada. 
+Esto indica que el algoritmo se aproxima a un óptimo local o global, y que las mejoras requieren variaciones cada vez más específicas. 
+
+\subsection{Estabilidad del fitness promedio}
+La curva correspondiente a la aptitud promedio se mantiene relativamente estable en torno a valores de entre $4.8 \times 10^6$ y $5.0 \times 10^6$.
+Esta estabilidad, acompañada de ligeras oscilaciones debido a la estocasticidad del cruce y la mutación, sugiere que la población completa 
+no mejora al mismo ritmo que el mejor individuo.
+
+El hecho de que exista una diferencia considerable entre el mejor fitness (alrededor de $3.3 \times 10^6$) y el promedio refleja que 
+sólo una fracción reducida de los individuos posee alta calidad, mientras que la mayoría se mantiene en niveles de aptitud medio. 
+
+\subsection{Convergencia parcial}
+El algoritmo muestra convergencia, aunque no total. Si bien el mejor individuo continúa mejorando incluso después de las 300 generaciones, 
+el promedio permanece alto. Esto puede deberse a alguno de los siguientes factores:
+\begin{itemize}
+    \item Tasa de mutación baja.
+    \item Selección demasiado estricta, que reduce diversidad.
+    \item Cruces conservadores.
+    \item Elitismo elevado.
+\end{itemize}
+
+A pesar de ello, el algoritmo no presenta estancamiento completo, lo cual indica que los operadores genéticos logran introducir variación 
+suficiente para permitir mejoras ocasionales.
