@@ -1,20 +1,35 @@
 \section{Resultados}
 % Se muestran e interpretan los resultados como se obtuvieron
-Podemos observar que con las restricciones de conjuntos $(i,j)$ las rutas se hacen mas complejas de determinar, esto se debe a que ya no
-es tan facil tener combinaciones validas como aptas, y a su vez esto puede verse en resultados como en la figura~\ref{1000_pmx} donde existe
-un ``cruce'' en la ruta sin embargo esto aunque pareciera extraño el resultado general es bastante bueno al encontrarse entre los mejores 
-obtenidos. Podemos observar nuestros resultados ordenados de la siguiente manera del mejor al peor:
 
-\begin{enumerate}
-    \item $4,415.91$Km PBX 1000 --~\ref{1000_pbx}
-    \item $4,607.21$Km PBX 500 --~\ref{500_pbx}
-    \item $4,610.89$Km PMX 1000 --~\ref{1000_pmx}
-    \item $4,677.34$Km PMX 100 --~\ref{100_pmx}
-    \item $4,905.76$Km PMX 500 --~\ref{500_pmx}
-    \item $4,927.89$Km PBX 100 --~\ref{100_pbx}
-\end{enumerate}
+En la Figura~\ref{fig: metricas} podemos ver la evolución de la mejor aptitud global y de la aptitud promedio por generación del algoritmo genético. 
+Con esto podemos comentar lo siguiente:
 
-Como podemos ver la mejor ruta se encontro con el metodo PBX y poblacion de 1000 esta combinacion se ve favorecida debido al espacion de busqueda inicial 
-ya que tenemos una poblacion muy amplia. Por otro lado la segunda mejor ruta la encontramos con el mismo metodo y una poblacion más pequeña esto demuestra
-el buen desempeño de este metodo ya que en ambos casos tambien observamos la rapida convergencia del algoritmo en ambos casos siendo alrededor de las 150
-generaciones.
+\subsection{Mejora rápida inicial}
+En las primeras generaciones se observa un descenso rapido de la mejor aptitud global, lo que indica que el algoritmo encontró soluciones 
+de buena calidad rápidamente. Esto sugiere una población inicial variada y operadores genéticos (selección y cruce) 
+que favorecen mejoras tempranas.
+
+\subsection{Disminución progresiva en la tasa de mejora}
+Después de aproximadamente 50--60 generaciones, la curva de la mejor aptitud desciende de forma más lenta, de forma escalonada. 
+Esto indica que el algoritmo se aproxima a un óptimo local o global, y que las mejoras requieren variaciones cada vez más específicas. 
+
+\subsection{Estabilidad del fitness promedio}
+La curva correspondiente a la aptitud promedio se mantiene relativamente estable en torno a valores de entre $4.8 \times 10^6$ y $5.0 \times 10^6$.
+Esta estabilidad, acompañada de ligeras oscilaciones debido a la estocasticidad del cruce y la mutación, sugiere que la población completa 
+no mejora al mismo ritmo que el mejor individuo.
+
+El hecho de que exista una diferencia considerable entre el mejor fitness (alrededor de $3.3 \times 10^6$) y el promedio refleja que 
+sólo una fracción reducida de los individuos posee alta calidad, mientras que la mayoría se mantiene en niveles de aptitud medio. 
+
+\subsection{Convergencia parcial}
+El algoritmo muestra convergencia, aunque no total. Si bien el mejor individuo continúa mejorando incluso después de las 300 generaciones, 
+el promedio permanece alto. Esto puede deberse a alguno de los siguientes factores:
+\begin{itemize}
+    \item Tasa de mutación baja.
+    \item Selección demasiado estricta, que reduce diversidad.
+    \item Cruces conservadores.
+    \item Elitismo elevado.
+\end{itemize}
+
+A pesar de ello, el algoritmo no presenta estancamiento completo, lo cual indica que los operadores genéticos logran introducir variación 
+suficiente para permitir mejoras ocasionales.

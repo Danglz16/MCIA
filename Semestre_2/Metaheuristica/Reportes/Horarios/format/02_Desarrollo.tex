@@ -8,7 +8,13 @@ capaz de satisfacer las restricciones duras y optimizar las restricciones blanda
 
 \subsection{Representación del Cromosoma}
 
-Cada individuo de la población representa un horario completo. Para ello, se construyó un cromosoma donde cada gen corresponde a un evento académico (materia--grupo) 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.25\textwidth]{rsc/img/des/DB.png}
+    \caption{Primeros 20 Elementos de la DB creada}\label{fig: DB_full}
+\end{figure}
+
+Cada individuo de la población representa un horario completo. Para ello, se construyó un cromosoma donde cada gen corresponde a un evento académico (materia---grupo) 
 definido en la base de datos. Cada gen se codifica como un par ordenado:
 
 \[
@@ -24,12 +30,18 @@ donde:
 Esta representación permite manejar clases de diferente duración, tipos de aula (laboratorio y salón de clases), y múltiples cursos simultáneamente. 
 Además, facilita la verificación de cruces, compatibilidad y duración sin necesidad de estructuras intermedias complejas.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{rsc/img/des/funcion_ggen_individuos.png}
+    \caption{Funcion Generadora de Individuos}\label{func: gen_ind}
+\end{figure}
+
 \subsection{Datos y Restricciones Incorporadas}
 
 La base de datos utilizada contiene:
 \begin{itemize}
     \item Lista de cursos, su duración en bloques y el número de sesiones por semana.
-    \item Relación curso--grupo para evitar combinar grupos distintos en un mismo curso.
+    \item Relación curso---grupo para evitar combinar grupos distintos en un mismo curso.
     \item Tipos de salón requeridos (normal, laboratorio).
     \item Tabla de salones disponibles con su \textit{room\_type} correspondiente.
     \item Número total de bloques de tiempo por día y por semana.
@@ -41,7 +53,7 @@ A partir de estas tablas se construyeron estructuras auxiliares como:
     \item \texttt{duration\_slots[i]}: número de bloques que ocupa cada clase.
 \end{itemize}
 
-\subsection{Generación de Individuos}
+\subsection{Generación de población inicial}
 
 Para crear la población inicial, cada evento se asigna de la siguiente manera:
 
@@ -74,17 +86,50 @@ La aptitud total se define como:
 
 y el objetivo del algoritmo es minimizarla.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{rsc/img/des/func_apt.png}
+    \caption{Funcion para medir aptitud}\label{func: apt}
+\end{figure}
+
 \subsection{Operadores Genéticos}
 
 Se emplean los operadores clásicos adaptados a la estructura del horario:
 
 \begin{itemize}
-    \item \textbf{Selección por torneo}: favorece individuos con menor penalización.
-    \item \textbf{Cruce uniforme por gen}: cada gen del hijo proviene aleatoriamente de uno de los padres, manteniendo la pareja (salón, inicio).
-    \item \textbf{Mutación controlada}: se permite cambiar el salón o el bloque de inicio respetando las compatibilidades.
+    \item \textbf{Selección por torneo}: favorece individuos con menor penalización.~\ref{func: tournament}
+    \item \textbf{Cruce uniforme por gen}: cada gen del hijo proviene aleatoriamente de uno de los padres, manteniendo la pareja (salón, inicio).~\ref{func: cruce}
+    \item \textbf{Mutación controlada}: se permite cambiar el salón o el bloque de inicio respetando las compatibilidades.~\ref{func: mutacion}
 \end{itemize}
 
 Estos operadores permiten explorar el espacio de soluciones sin destruir completamente buenas configuraciones parciales.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{rsc/img/des/func_tournament.png}
+    \caption{Funcion Selección por Torneo}\label{func: tournament}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{rsc/img/des/func_cruce.png}
+    \caption{Funcion Cruce por crossover}\label{func: cruce}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{rsc/img/des/func_mutacion.png}
+    \caption{Funcion de Mutación}\label{func: mutacion}
+\end{figure}
+
+
+\subsection{Ejecucion del AG}
+Con todo lo anterior mencionado ejecutamos todo nuestro AG con la siguiente función:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{rsc/img/des/func_ag.png}
+    \caption{Funcion para ejecutar el AG}\label{func: ag}
+\end{figure}
 
 \subsection{Construcción del Horario Final}
 
@@ -99,12 +144,50 @@ Para cada día, se genera automáticamente:
 Finalmente, se exporta a un archivo Excel donde cada hoja representa un día de la semana. Este archivo también incorpora formatos de color para distinguir carreras 
 facilitando el analisis visual de los resultados, los colores asignados fueron:
 \begin{itemize}
-	\item MC. Inteligencia Artificial en azul
-	\item Ing. Nanotecnologia en amarillo
-	\item Ing. Biomedica en verde
-	\item Ing. Física en morado
+	\item MC.Inteligencia artificial en azul.
+	\item Ing.Nanotecnologia en amarillo.
+	\item Ing.Biomedica en verde.
+	\item Ing.Física en morado.
 	\item Cruces en rojo.
 \end{itemize}
 
-\subsection{Ejecucion del AG}
-Con todo lo anterior menc
+\subsection{Resultados Obtenidos}\label{ejecucion}
+
+Al correr nuestro AG con 200 individuos a lo largo de 500 generaciones y obtuvimos lo siguiente:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{rsc/img/des/metricas.png}
+    \caption{Metricas de nuestro AG}\label{fig: metricas}
+\end{figure}
+
+Podemos obvservar como la aptitud de nuestro mejor individuo si mejora a lo largo de las generaciones y el promedio aunque mejora tiene momentos
+en los cuales empeora, este comportamiento lo podemos ver debido a los picos que tiene.
+
+Para nuestras propuestas de Horarios tenemos lo siguiente:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.35\textwidth]{rsc/img/des/lunes.png}
+    \caption{Horario Propuesto Lunes}\label{fig: lunes}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.35\textwidth]{rsc/img/des/martes.png}
+    \caption{Horario Propuesto Martes}\label{fig: martes}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.35\textwidth]{rsc/img/des/miercoles.png}
+    \caption{Horario Propuesto Miercoles}\label{fig: miercoles}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.30\textwidth]{rsc/img/des/jueves.png}
+    \caption{Horario Propuesto Jueves}\label{fig: jueves}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.30\textwidth]{rsc/img/des/viernes.png}
+    \caption{Horario Propuesto Viernes}\label{fig: viernes}
+\end{figure}
