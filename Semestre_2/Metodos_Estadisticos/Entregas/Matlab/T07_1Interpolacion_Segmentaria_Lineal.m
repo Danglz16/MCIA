@@ -30,7 +30,7 @@ end
 
 figure;
 plot(xt,f_x,'o','LineWidth',2);
-title('Interpolacion Segmentaria Cubica (MATLAB spline)');
+title('Interpolacion Segmentaria Lineal (MATLAB spline)');
 xlabel('x');
 ylabel('f(x)');
 grid on;
