@@ -7,7 +7,6 @@ Debido a la naturaleza combinatoria del problema, el BPP es considerado NP-hard,
 a medida que el número de objetos crece.
 
 \subsection{Técnicas de optimización inspiradas en procesos naturales}
-
 En las últimas décadas, muchos problemas complejos de optimización han sido abordados mediante algoritmos inspirados en procesos naturales. 
 Estos métodos imitan comportamientos observados en la biología, la física y la ecología, permitiendo explorar grandes espacios de búsqueda 
 de forma eficiente sin requerir una solución exacta.
@@ -16,11 +15,11 @@ Entre las técnicas más comunes se encuentran:
 
 \begin{itemize}
     \item \textbf{Optimización por Enjambre de Partículas (PSO):} Modela el movimiento colectivo de bandadas de aves o bancos de peces, 
-                actualizando las soluciones mediante la experiencia individual y colectiva.
+          actualizando las soluciones mediante la experiencia individual y colectiva.
     \item \textbf{Recocido Simulado (SA):} Inspirado en el proceso físico de enfriamiento del metal, explora soluciones aleatorias 
-                permitiendo aceptar temporalmente soluciones peores para evitar óptimos locales.
+          permitiendo aceptar temporalmente soluciones peores para evitar óptimos locales.
     \item \textbf{Sistemas Inmunes Artificiales (AIS):} Simulan la adaptación del sistema inmunológico, identificando patrones, clonando 
-                buenas soluciones y descartando respuestas ineficientes.
+          buenas soluciones y descartando respuestas ineficientes.
 \end{itemize}
 
 Estas técnicas, conocidas como metaheurísticas, son especialmente útiles para problemas NP-hard, donde la búsqueda exhaustiva es impráctica. 
@@ -28,7 +27,7 @@ Entre ellas, uno de los métodos más efectivos para problemas combinatorios es 
 
 \subsection{Ant Colony Optimization aplicada al Bin Packing}
 
-El metodo de Ant Colony Optimization (ACO), propuesta originalmente por Dorigo y colaboradores~\cite{dorigo1996ant, dorigo2006ant}, 
+El método de Ant Colony Optimization (ACO), propuesta originalmente por Dorigo y colaboradores~\cite{dorigo1996ant, dorigo2006ant}, 
 es una metaheurística inspirada en la forma en que las hormigas reales encuentran rutas óptimas entre su colonia y una fuente de alimento. 
 Su mecanismo central se basa en el uso de feromonas, una señal química que marca rutas prometedoras; conforme más hormigas utilizan un 
 camino, mayor es la cantidad de feromona acumulada, reforzando su probabilidad de ser elegido nuevamente.
@@ -38,9 +37,9 @@ probabilístico que combina dos fuentes de información:
 
 \begin{enumerate}
     \item \textbf{La feromona} almacenada para cada combinación objeto–contenedor, que refleja qué tan útil ha sido esta asignación en 
-                soluciones previas.
+          soluciones previas.
     \item \textbf{La heurística}, que evalúa localmente la conveniencia de colocar un objeto en un contenedor, típicamente basada en el 
-                espacio restante.
+          espacio restante.
 \end{enumerate}
 
 La probabilidad de que una hormiga $k$ asigne el objeto $i$ al contenedor $j$ viene dada por:
@@ -64,7 +63,6 @@ donde:
     \item $\alpha$ controla la \textbf{importancia de la feromona}.  
     \item $\beta$ controla la \textbf{importancia de la heurística}.  
 \end{itemize}
-
 
 \subsubsection*{Evaporación y depósito de feromonas}
 
@@ -112,9 +110,19 @@ En este modelo:
 Así, las hormigas no solo siguen caminos exitosos, sino que también exploran nuevas combinaciones de asignación, permitiendo gradualmente 
 encontrar configuraciones más eficientes de empacado.
 
-\subsection{Problema}
-Para este trabajo considerademos 5 contenedores, de la A a la E, cada uno con capacidad 6 y 7 paquetes con tamaños variados que deben ser 
-asignados a estos contenedores.
+\subsection{Planteamiento del Problema}\label{Problema}
+Para este trabajo consideramos un escenario compuesto por 1000 paquetes, con 5 tipos de tamaños posibles:
+\begin{itemize}
+    \item Caja 1: 2 alto x 0.8 ancho metros.
+    \item Caja 2: 3 alto x 0.8 ancho metros.
+    \item Caja 3: 5 alto x 0.8 ancho metros.
+    \item Caja 4: 6 alto x 0.8 ancho metros.
+    \item Caja 5: 8 alto x 0.8 ancho metros.
+\end{itemize}  
+Todos deben ser asignados a un conjunto de contenedores homogéneos de una medida estandar de $2.4 m\times12 m$.
+Es decir, cada contenedor tiene una capacidad máxima de 12 unidades de altura (considerando el ancho fijo de 0.8 m) y cada contenedor puede alojar 3 
+columnas de cajas apiladas verticalmente.  
+El objetivo es minimizar el número total de contenedores necesarios para alojar los 1000 paquetes.
 
 \begin{figure}[H]
     \centering
@@ -126,5 +134,5 @@ Ejemplos de forma de acomodar los paquetes en los contenedores.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{rsc/img/intro/ejemplos.png}
-    \caption{Ejemplos de formas de acomodar los paquetes en los contenedores.}\label{fig:ejemplos}
+    \caption{Ejemplos de formas de acomodar paquetes en contenedores.}\label{fig:ejemplos}
 \end{figure}

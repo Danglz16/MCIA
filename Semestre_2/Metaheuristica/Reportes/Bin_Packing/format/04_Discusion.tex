@@ -1,2 +1,31 @@
 \section{Discusión}
 % Interpretacion propia de los datos
+
+Con los resultados obtenidos en la sección anterior podemos observar que el 
+algoritmo de colonia de hormigas (ACO) muestra un buen desempeño ya que con 20 hormigas
+se logra una solución cercana al óptimo en un tiempo razonable. La evolución del 
+mejor fitness a lo largo de las iteraciones indica que el algoritmo es capaz de 
+explorar el espacio de soluciones y mejorar progresivamente la calidad de las 
+soluciones encontradas.
+
+Esto lo vemos claramente en la Figura~\ref{fig:fitness}, donde el fitness del mejor
+comienza separado del promedio y conforme avanzan las iteraciones se acerca al promedio,
+ademas de que podemos ver como al decaer (iteraciones $\approx10-30$) indicar un proceso de exploracion de soluciones
+lo cual es característico del ACO.Despues de esto las feromonas empiezan a evaporarse
+lo cual va dejando que las mejores soluciones lo cual es explotado (iteraciones $\approx30-75$)
+hasta que convergen a una solución estable (iteracion $\approx80$) donde ya no hay mejoras significativas
+y el fitness del mejor y el promedio se estabilizan.
+
+Por otro lado en la Figura~\ref{fig:xcont} podemos observar que la carga utilizada en cada contenedor
+es bastante uniforme, con la mayoría de los contenedores cerca de la capacidad máxima de 36 unidades.
+Sin embargo tambien hay algunos contenedores con cargas significativamente menores, lo que sugiere que
+podría haber espacio para mejorar la eficiencia del empaquetado y reducir el desperdicio de espacio.
+Esta variabilidad se la podemos atribuir a varios factores, como la naturaleza aleatoria de los tamaños
+de los paquetes asi como la heuristica utilizada por el ACO que puede no siempre encontrar la solución óptima.
+
+Un poco de esto tambien se refleja en la Figura~\ref{fig:xcol}, donde la carga en las columnas también muestra 
+cierta variabilidad. Sin embargo nos muestra que aunque existen contenedores con baja carga, las columnas 
+tienden a estar más uniformemente distribuidas ya que existe un promedio de carga por columna de 11.27
+lo cual es muy cercano a la capacidad máxima de 12 unidades por columna. Comparado con la capacidad
+promedio por contenedor de 29.83 unidades (casi 6 unidades menos que la capacidad máxima de 36), esto sugiere que aunque algunos contenedores no están completamente llenos,
+la distribución de paquetes dentro de las columnas es más eficiente.
