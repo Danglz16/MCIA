@@ -1,0 +1,54 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[utf8]{inputenc}
+\usepackage{subcaption}
+\usepackage{caption}
+\usepackage{amsmath}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage[useregional]{datetime2}
+\usepackage{multicol}
+\usepackage{float}
+\usepackage{geometry}
+\usepackage{url}
+\usepackage{csquotes}
+\usepackage[backend=biber,sorting=none]{biblatex}
+
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\bibliography{rsc/ref.bib}
+
+% Configuración de márgenes
+\geometry{
+    left=2cm,    % Margen izquierdo
+    right=2cm,   % Margen derecho
+    top=3cm,     % Margen superior
+    bottom=3cm   % Margen inferior
+}
+
+
+\begin{document}
+    \input{format/00_cover}
+    \pagenumbering{roman}
+    \tableofcontents
+    \clearpage % Asegura que el texto comience en una nueva página
+    
+    \newpage
+    \pagenumbering{arabic}
+    \input{format/01_Intro}
+    \input{format/02_Desarrollo}
+    \input{format/03_Resultados}
+    \input{format/04_Discusion}
+    \input{format/05_Conclusion}
+    \clearpage
+    \input{format/06_Bibliografia}
+\end{document}
