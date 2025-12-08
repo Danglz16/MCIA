@@ -31,5 +31,3 @@ subplot(221);imshow(Dx);title('Derivada de X en A'); colormap gray
 subplot(222);imshow(Dy);title('Derivada de Y en A'); colormap gray
 subplot(223);imshow(Magnitud);title('Magnitud = sqrt(Dx^2 + Dy^2)'); colormap gray
 subplot(224);imshow(Angulo);title('Angulo = atan2(Dy,Dx)'); colormap gray
-
-%figure;imshow(Magnitud); colormap gray

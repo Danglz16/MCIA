@@ -1,20 +1,35 @@
 \section{Desarrollo}
 % Metodologia / Desarrollo
 
-Para nuestro desarollo partimos de un punto importante, como podemos ver en la Figura~\ref{fig:ejemplos} la capacidad maxima de nuestros contenedores 
-es de 6 unidades, lo que debemos tomar en cuenta al momento de asignar los paquetes, ya que no podemos sobrepasar esta capacidad.
+Para nuestro desarollo partimos de las consideraciones iniciales como los paquetes a empacar, la capacidad de los contenedores y los parámetros del 
+algoritmo de colonia de hormigas.
 
 \subsection{Consideraciones iniciales}
 
 Primeramente se define la instancia del problema y los parámetros generales del algoritmo. Se especifican:
 
 \begin{itemize}
-    \item El conjunto de objetos a empacar:
+    \item El conjunto de objetos a empacar:Para lo cual generamos un arreglo de 1000 paquetes con tamaños aleatorios entre los 5 tipos definidos,
+    donde cada dato corresponde al tamaño de un paquete como se menciona en la sección~\ref{Problema}.
+    \item La capacidad de los contenedores, $C = 12$, ya que el trailer tiene 2.4 m de ancho y cada 
+    paquete ocupa 0.8 m, lo que permite formar 3 columnas. Cada columna tiene 12 m de largo, por lo que 
+    su capacidad es de 12 unidades.
+    \item Se calcula la suma total del tamaño de los 1000 paquetes.  
+    \item Se obtiene el número mínimo de columnas necesarias dividiendo esta suma entre la 
+    capacidad de una columna ($C = 12$) y aplicando redondeo hacia arriba:
     \[
-        \mathbf{p} = [2, 4, 3, 5, 3, 4, 1],
+        \text{min\_columnas} = \left\lceil \frac{\sum p_i}{C} \right\rceil.
     \]
-    donde cada dato corresponde al tamaño de un paquete como se ve en la Figura~\ref{fig:bin_packing}.
-    \item La capacidad de los contenedores, $C = 6$, asi como el número de contenedores disponibles.
+    \item Para evitar que el algoritmo se quede sin opciones y permitir mayor exploración, se 
+    introduce un factor de holgura de 1.2, es decir, se usa un 20\% más de columnas que el 
+    mínimo teórico:
+    \[
+        \text{n\_columnas} = \left\lceil 1.2 \times \text{min\_columnas} \right\rceil.
+    \]
+    \item Como cada contenedor físico está compuesto por 3 columnas (debido al ancho disponible 
+    del tráiler), se ajusta el número total para que siempre sea múltiplo de 3.
+    \item Finalmente, cada grupo de tres columnas se etiqueta como un contenedor con columnas 
+    internas, por ejemplo: \texttt{Cont\_3\_Col\_1}, \texttt{Cont\_3\_Col\_2}, \texttt{Cont\_3\_Col\_3}.
     \item Los parámetros del algoritmo de colonia de hormigas:
     \[
     \alpha = 1.0, \quad
@@ -39,7 +54,7 @@ Con lo cual debemos calcular para cada contenedor:
 
 \begin{itemize}
     \item La suma de tamaños de los objetos asignados (carga).
-    \item Si se viola o no la capacidad máxima $C$.
+    \item Evitando que se viole la capacidad máxima $C$.
 \end{itemize}
 
 \subsection{Inicialización de feromonas y heurística}
