@@ -2,9 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from skimage.io import imread
 from skimage.color import rgb2gray
-from skimage.filters import threshold_otsu
 from tkinter import Tk, filedialog
-from skimage.exposure import equalize_hist, equalize_adapthist
 
 Tk().withdraw()
 file_path = filedialog.askopenfilename(

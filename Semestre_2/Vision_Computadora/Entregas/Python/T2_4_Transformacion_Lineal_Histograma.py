@@ -2,7 +2,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 from skimage.io import imread
 from skimage.color import rgb2gray
-from skimage.filters import threshold_otsu
 from tkinter import Tk, filedialog
 
 Tk().withdraw()
