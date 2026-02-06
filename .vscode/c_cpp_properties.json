@@ -1,0 +1,27 @@
+{
+  "configurations": [
+    {
+      "name": "Win32",
+      "compilerPath": "C:/Strawberry/c/bin/g++.exe",
+      "intelliSenseMode": "windows-gcc-x64",
+      "cppStandard": "c++20",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "C:/Strawberry/c/include",
+        "C:/Strawberry/c/include/c++/13.1.0",
+        "C:/Strawberry/c/include/c++/13.1.0/x86_64-w64-mingw32",
+        "C:/Strawberry/c/x86_64-w64-mingw32/include"
+      ],
+      "browse": {
+        "path": [
+          "${workspaceFolder}",
+          "C:/Strawberry/c/include",
+          "C:/Strawberry/c/include/c++/13.1.0",
+          "C:/Strawberry/c/include/c++/13.1.0/x86_64-w64-mingw32",
+          "C:/Strawberry/c/x86_64-w64-mingw32/include"
+        ]
+      }
+    }
+  ],
+  "version": 4
+}
