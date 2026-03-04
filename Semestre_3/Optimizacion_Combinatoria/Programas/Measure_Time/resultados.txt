@@ -1,0 +1,70 @@
+
+With 10 elements
+The maximum sum 1 is 125
+Time taken: 0 seconds
+
+The maximum sum 2 is 125
+Time taken: 0 seconds
+
+The maximum sum 3 is 125
+Time taken: 0 seconds
+
+The maximum sum 4 is 125
+Time taken: 0 seconds
+
+
+With 100 elements
+The maximum sum 1 is 330
+Time taken: 0.001 seconds
+
+The maximum sum 2 is 330
+Time taken: 0 seconds
+
+The maximum sum 3 is 330
+Time taken: 0 seconds
+
+The maximum sum 4 is 330
+Time taken: 0 seconds
+
+
+With 1000 elements
+The maximum sum 1 is 1776
+Time taken: 0.281 seconds
+
+The maximum sum 2 is 1776
+Time taken: 0.002 seconds
+
+The maximum sum 3 is 1776
+Time taken: 0 seconds
+
+The maximum sum 4 is 1776
+Time taken: 0 seconds
+
+
+With 10000 elements
+The maximum sum 1 is 3287
+Time taken: 281.478 seconds
+
+The maximum sum 2 is 3287
+Time taken: 0.153 seconds
+
+The maximum sum 3 is 3287
+Time taken: 0.001 seconds
+
+The maximum sum 4 is 3287
+Time taken: 0 seconds
+
+
+With 20000 elements
+The maximum sum 1 is 6706
+Time taken: 2333.71 seconds
+
+The maximum sum 2 is 6706
+Time taken: 0.627 seconds
+
+The maximum sum 3 is 6706
+Time taken: 0.002 seconds
+
+The maximum sum 4 is 6706
+Time taken: 0 seconds
+

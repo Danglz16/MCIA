@@ -1,0 +1,126 @@
+
+With 100 elements
+The maximum sum 1 is 430
+Time taken: 0.001 seconds
+
+The maximum sum 2 is 430
+Time taken: 0 seconds
+
+The maximum sum 3 is 430
+Time taken: 0 seconds
+
+The maximum sum 4 is 430
+Time taken: 0 seconds
+
+
+With 1000 elements
+The maximum sum 1 is 1436
+Time taken: 0.313 seconds
+
+The maximum sum 2 is 1436
+Time taken: 0.002 seconds
+
+The maximum sum 3 is 1436
+Time taken: 0 seconds
+
+The maximum sum 4 is 1436
+Time taken: 0 seconds
+
+
+With 10000 elements
+The maximum sum 1 is 7628
+Time taken: 288.895 seconds
+
+The maximum sum 2 is 7628
+Time taken: 0.138 seconds
+
+The maximum sum 3 is 7628
+Time taken: 0.001 seconds
+
+The maximum sum 4 is 7628
+Time taken: 0 seconds
+
+
+With 20000 elements
+The maximum sum 1 is 5123
+Time taken: 2446.27 seconds
+
+The maximum sum 2 is 5123
+Time taken: 0.592 seconds
+
+The maximum sum 3 is 5123
+Time taken: 0.002 seconds
+
+The maximum sum 4 is 5123
+Time taken: 0 seconds
+
+
+With 10 elements and 12 threads
+The maximum sum 1 is 132
+Time taken: 0 seconds
+
+The maximum sum 2 is 132
+Time taken: 0 seconds
+
+The maximum sum 3 is 132
+Time taken: 0 seconds
+
+The maximum sum 4 is 132
+Time taken: 0 seconds
+
+
+With 100 elements and 12 threads
+The maximum sum 1 is 683
+Time taken: 0 seconds
+
+The maximum sum 2 is 683
+Time taken: 0 seconds
+
+The maximum sum 3 is 683
+Time taken: 0 seconds
+
+The maximum sum 4 is 683
+Time taken: 0 seconds
+
+
+With 1000 elements and 12 threads
+The maximum sum 1 is 1264
+Time taken: 0.315 seconds
+
+The maximum sum 2 is 1264
+Time taken: 0.002 seconds
+
+The maximum sum 3 is 1264
+Time taken: 0 seconds
+
+The maximum sum 4 is 1264
+Time taken: 0 seconds
+
+
+With 10000 elements and 12 threads
+The maximum sum 1 is 3196
+Time taken: 302.994 seconds
+
+The maximum sum 2 is 3196
+Time taken: 0.141 seconds
+
+The maximum sum 3 is 3196
+Time taken: 0.001 seconds
+
+The maximum sum 4 is 3196
+Time taken: 0 seconds
+
+
+With 20000 elements and 12 threads
+The maximum sum 1 is 4884
+Time taken: 2429.49 seconds
+
+The maximum sum 2 is 4884
+Time taken: 0.598 seconds
+
+The maximum sum 3 is 4884
+Time taken: 0.002 seconds
+
+The maximum sum 4 is 4884
+Time taken: 0 seconds
+
