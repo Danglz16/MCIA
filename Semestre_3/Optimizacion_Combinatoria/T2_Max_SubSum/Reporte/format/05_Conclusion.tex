@@ -1,0 +1,28 @@
+\section{Conclusión}
+% Que puedo decir con base en lo que obtuve
+
+A partir de los experimentos realizados y de la gráfica comparativa en escala logarítmica, es posible observar claramente el comportamiento de los cuatro algoritmos analizados para el problema de la subsecuencia de suma máxima.
+
+\begin{itemize}
+
+\item \textbf{Sum1 ($O(n^3)$)} presenta el crecimiento más rápido en el tiempo de ejecución. Conforme aumenta el tamaño de la instancia $n$, el tiempo requerido crece de manera muy acelerada, lo que lo vuelve impráctico para valores grandes de $n$.
+
+\item \textbf{Sum2 ($O(n^2)$)} mejora considerablemente respecto al primer algoritmo. Aunque el crecimiento sigue siendo significativo, el tiempo de ejecución aumenta de manera menos pronunciada que en el caso cúbico.
+
+\item \textbf{Sum3 ($O(n \log n)$)}, basado en la estrategia de divide y vencerás, muestra una mejora importante en eficiencia. El crecimiento del tiempo de ejecución es mucho más moderado en comparación con los algoritmos anteriores.
+
+\item \textbf{Sum4 ($O(n)$)}, correspondiente al algoritmo lineal (Kadane), resulta ser el más eficiente de todos los algoritmos evaluados. Su tiempo de ejecución crece de forma casi proporcional al tamaño del arreglo y se mantiene muy pequeño incluso para instancias grandes.
+
+\end{itemize}
+
+Asimismo, los resultados obtenidos permiten observar que:
+
+\begin{itemize}
+
+\item La paralelización no modifica la complejidad asintótica de los algoritmos, pero sí reduce el tiempo de ejecución al disminuir los factores constantes asociados al cómputo.
+
+\item El algoritmo \textbf{Sum4} continúa siendo el más rápido incluso en ejecución secuencial, lo cual confirma el análisis teórico de su complejidad lineal.
+
+\end{itemize}
+
+En general, los resultados experimentales concuerdan con el análisis teórico de complejidad de cada algoritmo, evidenciando cómo el diseño algorítmico influye directamente en el desempeño al aumentar el tamaño de las instancias.

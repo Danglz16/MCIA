@@ -85,6 +85,16 @@ int maxSubSum4( const vector<int> & a )
  return maxSum;
 }
 
+int maxSubSum5(const vector<int>& a) {
+    int best = 0;
+    int cur  = 0;
+    for (int x : a) {
+        cur = max(0, cur + x);
+        best = max(best, cur);
+    }
+    return best;
+}
+
 int main ()
 {
     srand((unsigned)time(nullptr));
@@ -154,6 +164,18 @@ int main ()
     cout << "Time taken: " << t0 << " seconds\n" << endl;
 
     file << "The maximum sum 4 is " << r << endl;
+    file << "Time taken: " << t0 << " seconds\n" << endl;
+
+    // maxSubSum5
+    start = clock();
+    r = maxSubSum5(a);
+    finish = clock();
+    t0 = ((long double)(finish - start)) / CLOCKS_PER_SEC;
+
+    cout << "The maximum sum 5 is " << r << endl;
+    cout << "Time taken: " << t0 << " seconds\n" << endl;
+
+    file << "The maximum sum 5 is " << r << endl;
     file << "Time taken: " << t0 << " seconds\n" << endl;
 
     file.close();
