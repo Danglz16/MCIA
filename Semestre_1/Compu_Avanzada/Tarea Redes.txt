@@ -1,0 +1,17 @@
+Arreglo de datos
+
+Constructor es una fucnion que se ejecuta solo una vez y se ejecuta cuando se crea el objeto de la estructura
+
+Destructor es una funcion que se ejecuta solo una vez y se ejecuta cuando el objeto es destruido
+
+Un constructor se puede sobrecargar cuando la lista de argumentos es diferente esto define si se sobrecargar
+
+Como reconocer la funcion destructor?
+Con la tilde al inicio ~ y se debe llamar igual que la estructura
+
+
+El punto nos permite entrar al objeto en uns estructura
+
+
+###########  Tarea  ################
+usando estructuras  hacer un programa que entrene y evalue la red hebbiana y otro para la red perceptron

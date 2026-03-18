@@ -1,0 +1,16 @@
+Neural Networks
+
+Perceptron simple y antiguo toma deciciones en los datos de entrada
+Para el algoritmo de retopropagacion nos permite ajustar los pesos de la red de manera que minimicen los errores en las predicciones
+
+Ingredientes clasve para una red neuronal:
+Conjunto de datos - para entrenar y evaluar la red
+Modelo - La estructura de la red incluyendo el numero de capas y neuronas
+Funcion de perdida - Metrica que cuantifica la diferencia entre las predicciones de la red
+					Y los valores reales
+Metodo de optimizacion - Algoritmo utilizado para ajustar los pesos de la red y minimizar la
+						funcion de perdida
+						
+Funcion sigmoide para reducir los datos entre 0 y 1
+bias - sesgo antes de la funcion sigmoide para saber que tanto se activa una neuronal
+
