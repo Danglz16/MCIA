@@ -2,11 +2,11 @@
 *\build
 *.latexmkrc
 *.synctex.gz
-*.bbl
-*.bcf
+*.bbl*
+*.bcf*
 *.toc
 *.xml
-
+*.blg
 # DB descomprimidos
 *\DB\**\**
 

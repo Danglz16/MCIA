@@ -1,0 +1,6 @@
+Compu avanzada 28/01/2025
+
+cplusplus.com para buscar info
+	Se pueden ver todos los parametros que acepta cada comando
+	
+Tarea - Hacer un programa en C para evaluar un polinomio de orden n
